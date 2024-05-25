@@ -40,29 +40,49 @@ const userController = {
     },
 
     loginUser: (req, res) => {
-
         const { email, senha } = req.body;
-
         const query = 'SELECT * FROM usuario WHERE email = ?';
+        
+        db.query(query, [email], (err, results) => {
+            if (err) {
+                return res.status(500).json({ error: 'Failed to get user' });
+            }
+            
+            if (results.length === 0) {
+                return res.status(401).json({ error: 'User not found' });
+            }
+            
+            const user = results[0];
+            if (user.senha !== senha) {
+                return res.status(401).json({ error: 'Invalid password' });
+            }
+            
+            console.log('User logged in');
+            console.log('User: ' + user);
+            
+            res.status(200).json({ message: 'Validated!' });
+        });
+    },
+    
+    getUser: (req, res) => {
+        
+        const { id } = req.params;
 
-        db.query(query, [email ], (err, results) => {
+        const query = 'SELECT * FROM usuario WHERE id = ?';
+
+        db.query(query, [id],(err, results) => {
 
             if (err) {
-                res.status(500).json({ error: 'Failed to get user' });
+                res.status(500).json({ error: 'Failed to fetch users' });
                 return;
             }
 
-            if (results.senha !== senha) {
-                return res.status(401).json({ error: `Senha inválida ${user.senha}` });
-            }
-            
-            console.log("Usuario se conectou");
-            res.status(201).json({ message: "Validado!" });
-            return;
+            res.json(results);
 
         });
 
-    }
+    },
+
 };
 
 module.exports = userController;
