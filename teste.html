@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header className="header-menu flex-col items-center justify-between">
+
+        <div className='container bg-zinc-950 rounded-t-3xl mt-3'>
+            <div className=' flex items-center justify-center   py-2'>
+                <a href='/' className='flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 my-1'>
+                    <FontAwesomeIcon icon={faChartLine} className='pe-5 h-20'></FontAwesomeIcon>
+                    <h1 className='text-2xl'>
+                        {metadata.title}
+                    </h1>
+                    <br></br>
+                </a>
+            </div>
+            <div className='flex justify-center mb-1'>
+                <h1 className='text-xl '>
+                    {metadata.description}
+                </h1>
+            </div>
+        </div>
+
+
+        <div className='container flex items-center justify-between'>
+            {/* cada div desta tera que ter o mesmo numero de links da de baixo */}
+            <div className='bg-zinc-800 container flex items-center justify-between py-2 mt-1'>
+                {/* links do vendedor */}
+                <div className='flex items-center ms-5'>
+                    <a className='hover:animate-pulse cursor-pointer  hover:text-yellow-500 transition ease-in-out duration-1000'>
+                        Log-in
+                    </a>
+                </div>
+                <div className='flex items-center'>
+                    <a className='hover:animate-pulse cursor-pointer  hover:text-yellow-500 transition ease-in-out duration-1000'>
+                        categoria-1
+                    </a>
+                </div>
+                <div className='flex items-center'>
+                    <a className='hover:animate-spin cursor-pointer'>
+                        categoria-2
+                    </a>
+                </div>
+                <div className='flex items-center me-5'>
+                    <a href='http://localhost:3000/Sellers/Login' className='hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000'>
+                        Sell Log-in
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div className='bg-zinc-800 rounded-b-xl container flex items-center justify-between py-2 mt-1'>
+            {/* links do cliente */}
+            <div className='flex items-center ms-4 '>
+                <a href='' className='hover:animate-pulse cursor-pointer  hover:text-yellow-500 transition ease-in-out duration-1000'>
+                    Sign-in
+                </a>
+            </div>
+            <div className='flex items-center'>
+                <a href='' className='hover:animate- cursor-pointer'>
+                    categoria-3
+                </a>
+            </div>
+            <div className='flex items-center'>
+                <a href='' className='hover:animate- cursor-pointer'>
+                    categoria-4
+                </a>
+            </div>
+            <div className='flex items-center'>
+                <a href='' className='hover:animate- cursor-pointer'>
+                    categoria-5
+                </a>
+            </div>
+            <div className='flex items-center me-4'>
+                <a href='http://localhost:3000/Sellers/Cadastro' className='hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000'>
+                    Sell Sign-in
+                </a>
+            </div>
+        </div>
+    </header>
+</body>
+</html>
