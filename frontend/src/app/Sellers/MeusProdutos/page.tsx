@@ -10,21 +10,21 @@ const safeMetadata = {
   description: metadata.description || "",
 };
 
-
 export default async function MeusProdutos() {
   const session = await fetchUserSession();
-
-  if (session?.tipo === 'Cliente') {
+  if (!session) {
     return redirect("http://localhost:3000/");
+  }else if (session?.tipo !== "Ambos" && "Vendedor") {
+    redirect("/");
   }
 
   return (
     <>
       <HeaderMenu metadata={safeMetadata} />
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <MeusProdutosComponent user_id={session?.id}/>
+        <MeusProdutosComponent user_id={session?.id} />
       </main>
-      <FooterMenu/>
+      <FooterMenu />
     </>
   );
 }

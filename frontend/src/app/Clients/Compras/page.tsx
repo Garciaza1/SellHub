@@ -1,6 +1,8 @@
 import { metadata } from "../../layout";
 import HeaderMenu from "../../Components/head/header";
 import FooterMenu from "../../Components/foot/footer";
+import fetchUserSession from "@/app/lib/helpers/SessionData";
+import { redirect } from "next/navigation";
 
 const safeMetadata = {
   title: typeof metadata.title === "string" ? metadata.title : "",
@@ -8,7 +10,10 @@ const safeMetadata = {
 };
 
 export default async function ComprasClient() {
-
+  const session = await fetchUserSession()
+  if (!session) {
+    return redirect("http://localhost:3000/Login");
+  }
 return(
     <>
       <HeaderMenu metadata={safeMetadata} />

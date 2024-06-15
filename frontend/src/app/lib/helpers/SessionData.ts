@@ -29,8 +29,6 @@ const fetchUserSession = async (): Promise<UserSession | null> => {
       // Faz a requisição para buscar os dados do usuário
       const response = await axios.get(`http://localhost:5000/Users/FetchUser/${email}`);
       
-      // console.log(response.data);
-
       // Mapeia os dados da resposta para a interface UserSession
       userSession = {
         id: response.data.id,

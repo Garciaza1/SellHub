@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 const TodosProdutos = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -39,15 +40,15 @@ const TodosProdutos = () => {
             return (
               <div
                 key={index}
-                className="bg-zinc-950 px-6 h-96 rounded-lg mx-2 mb-4"
+                className="bg-zinc-950 px-6 rounded-lg mx-2 mb-4 "
               >
-                <div className="w-44 h-64">
+                <div className="w-56 flex items-center justify-center">
                   <a
                     href={`http://localhost:3000/Clients/Product/${product.id}`}
-                    className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:mt-3 duration-300"
+                    className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-90 hover:mt-3 duration-300"
                   >
                     <img
-                      className="my-3 rounded-lg w-full h-full object-cover"
+                      className="my-3 rounded-lg object-cover size-80"
                       src={product.imagem}
                       alt={product.nome}
                     />

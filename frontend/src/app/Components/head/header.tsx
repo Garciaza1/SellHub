@@ -1,10 +1,17 @@
-// 'use client'
-// import { metadata } from "../../layout";
-// import { signOut } from "next-auth/react";
-// import { faRightToBracket, faUserTie, faFaceSadCry, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChartLine,
+  faHouse,
+  faDoorOpen,
+  faBox,
+  faBoxOpen,
+  faDollarSign,
+  faRightFromBracket,
+  faRightToBracket,
+  faTachometerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import fetchUserSession from "@/app/lib/helpers/SessionData";
+import Link from "next/link";
 
 interface HeaderProps {
   metadata: {
@@ -28,43 +35,62 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
     // email = session.email;
   }
 
-  
   // const handleSignOut = () => {
   //   signOut({ callbackUrl: '/' });
-    
-  // };
 
+  // };
 
   const renderVendedorLinks = () => (
     <>
+      <div className="flex items-center ms-4 ">
+        <a
+          href="/"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon icon={faHouse} className="mx-2 h-5" />
+          Home
+        </a>
+      </div>
       <div className="flex items-center ms-5">
         <a
           href="http://localhost:3000/Sellers/NovoProduto"
-          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
         >
+          <FontAwesomeIcon icon={faBoxOpen} className="mx-2 h-5" />
           Cadastrar Produto
         </a>
       </div>
       <div className="flex items-center">
         <a
           href="http://localhost:3000/Sellers/MeusProdutos"
-          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
         >
+          <FontAwesomeIcon icon={faBox} className="mx-2 h-5" />
           Meus Produtos
-        </a>
-      </div>
-      <div className="flex items-center">
-        <a href="#" className="hover:animate-spin cursor-pointer">
-          Vendas
         </a>
       </div>
       <div className="flex items-center me-5">
         <a
           href="#"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
         >
-          Log-out
+          {" "}
+          <FontAwesomeIcon
+            icon={faDollarSign}
+            className="mx-2 h-5 ext-yellow-500"
+          />
+          Vendas
         </a>
+      </div>
+
+      <div className="flex items-center me-5">
+        <Link
+          href="/Logout"
+          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon icon={faDoorOpen} className="mx-2 h-5" />
+          Log-out
+        </Link>
       </div>
     </>
   );
@@ -75,69 +101,105 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
         {/* cada div desta tera que ter o mesmo numero de links da de baixo */}
         <div className="bg-zinc-800 container flex items-center justify-between py-2 mt-1">
           {/* links do vendedor */}
+          <div className="flex items-center ms-4 ">
+            <a
+              href="/"
+              className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+            >
+              <FontAwesomeIcon icon={faHouse} className="mx-2 h-5" />
+              Home
+            </a>
+          </div>
           <div className="flex items-center ms-5">
             <a
               href="http://localhost:3000/Sellers/NovoProduto"
-              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
             >
+              <FontAwesomeIcon icon={faBoxOpen} className="mx-2 h-5" />
               Cadastrar Produto
             </a>
           </div>
           <div className="flex items-center">
             <a
               href="http://localhost:3000/Sellers/MeusProdutos"
-              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
             >
+              <FontAwesomeIcon icon={faBox} className="mx-2 h-5" />
               Meus Produtos
             </a>
           </div>
           <div className="flex items-center me-5">
-            <a href="#" className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000">
+            <a
+              href="http://localhost:3000/Sellers/Vendas"
+              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+            >
+              {" "}
+              <FontAwesomeIcon
+                icon={faDollarSign}
+                className="mx-2 h-5 ext-yellow-500"
+              />
               Vendas
             </a>
           </div>
-          {/* <div className="flex items-center me-5">
-            <a onClick={handleSignOut}
-              href="/"
-              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+          <div className="flex items-center me-5">
+            <a
+              href="http://localhost:3000/Sellers/Dashboard"
+              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
             >
-              Log-out
+              {" "}
+              <FontAwesomeIcon
+                icon={faTachometerAlt}
+                className="mx-2 h-5 ext-yellow-500"
+              />
+              Dashboard
             </a>
-          </div> */}
+          </div>
+
+          <div className="flex items-center me-5">
+            <Link
+              href="/Logout"
+              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+            >
+              <FontAwesomeIcon icon={faDoorOpen} className="mx-2 h-5" />
+              Log-out
+            </Link>
+          </div>
         </div>
       </div>
 
+      {/* links do cliente */}
       <div className="bg-zinc-800 rounded-b-xl container flex items-center justify-between py-2 mt-1">
-        {/* links do cliente */}
-        <div className="flex items-center ms-4 ">
+        <div className="flex items-center ms-5">
           <a
             href="#"
-            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
           >
             categoria-1
           </a>
         </div>
         <div className="flex items-center">
-          <a href="#" className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000">
+          <a
+            href="#"
+            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          >
             categoria-2
           </a>
         </div>
         <div className="flex items-center">
-          <a href="#" className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000">
+          <a
+            href="#"
+            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          >
             categoria-3
           </a>
         </div>
-        <div className="flex items-center">
-          <a href="#" className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000">
-            categoria-4
-          </a>
-        </div>
-        <div className="flex items-center me-4">
+
+        <div className="flex items-center me-5">
           <a
             href="#"
-            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
           >
-            categoria-5
+            categoria-4
           </a>
         </div>
       </div>
@@ -146,73 +208,145 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
 
   const renderClienteLinks = () => (
     <div className="bg-zinc-800 rounded-b-xl container flex items-center justify-between py-2 mt-1">
-        {/* links do cliente */}
-        <div className="flex items-center ms-4 ">
-          <a
-            href="#"
-            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
-          >
-            categoria-1
-          </a>
-        </div>
-        <div className="flex items-center">
-          <a href="#" className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000">
-            categoria-2
-          </a>
-        </div>
-        <div className="flex items-center">
-          <a href="#" className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000">
-            categoria-3
-          </a>
-        </div>
-        <div className="flex items-center">
-          <a href="#" className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000">
-            categoria-4
-          </a>
-        </div>
-        <div className="flex items-center me-4">
-          <a
-            href="#"
-            className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
-          >
-            categoria-5
-          </a>
-        </div>
+      {/* links do cliente */}
+      <div className="flex items-center ms-4 ">
+        <a
+          href="/"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon icon={faHouse} className="mx-2 h-5" />
+          Home
+        </a>
       </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-1
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-2
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-3
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-4
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-5
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-6
+        </a>
+      </div>
+      <div className="flex items-center me-4">
+        <Link
+          href="/Logout"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon icon={faDoorOpen} className="mx-2 h-5" />
+          Log-out
+        </Link>
+      </div>
+    </div>
   );
 
   const renderNonLoggedLinks = () => (
-    <>
+    <div className="bg-zinc-800 rounded-b-xl container flex items-center justify-between py-2 mt-1">
       <div className="flex items-center ms-5">
         <a
           href="http://localhost:3000/Login"
-          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
         >
+          <FontAwesomeIcon icon={faRightToBracket} className="mx-2 h-5" />
           Log-in
         </a>
       </div>
       <div className="flex items-center">
         <a
           href="#"
-          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
         >
           categoria-1
         </a>
       </div>
       <div className="flex items-center">
-        <a href="#" className="hover:animate-spin cursor-pointer">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
           categoria-2
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-3
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-4
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-5
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href="#"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          categoria-6
         </a>
       </div>
       <div className="flex items-center me-5">
         <a
           href="http://localhost:3000/Cadastro"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000"
+          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
         >
+          <FontAwesomeIcon icon={faRightFromBracket} className="mx-2 h-5" />
           Sign-In
         </a>
       </div>
-    </>
+    </div>
   );
 
   const renderLinks = () => {
@@ -239,9 +373,7 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
               icon={faChartLine}
               className="pe-5 h-20"
             ></FontAwesomeIcon>
-            <h1 className="text-2xl">
-              Sell Hub
-            </h1>
+            <h1 className="text-2xl">Sell Hub</h1>
             <br></br>
           </a>
         </div>
@@ -254,7 +386,7 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
         </div>
       </div>
       <div className="container flex items-center justify-between">
-          {renderLinks()}
+        {renderLinks()}
       </div>
     </header>
   );

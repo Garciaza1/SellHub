@@ -4,6 +4,8 @@ import FooterMenu from "../../../../../Components/foot/footer";
 import CompraForm from "@/app/Components/Client/checkout";
 import GetUser from "@/app/lib/helpers/UserData";
 import GetProduct from "@/app/lib/helpers/GetProduct";
+import fetchUserSession from "@/app/lib/helpers/SessionData";
+import { redirect } from "next/navigation";
 
 const safeMetadata = {
   title: typeof metadata.title === "string" ? metadata.title : "",
@@ -11,6 +13,11 @@ const safeMetadata = {
 };
 
 export default async function checkout({ params }: { params: { id: string } }) {
+
+  const session = await fetchUserSession()
+  if (!session) {
+    return redirect("http://localhost:3000/Login");
+  }
 
   const {id} = params;
 

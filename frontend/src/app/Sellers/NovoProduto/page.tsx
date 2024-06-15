@@ -13,9 +13,10 @@ const safeMetadata = {
 
 export default async function NovoProduto() {
   const session = await fetchUserSession();
-
   if (!session) {
     return redirect("http://localhost:3000/");
+  }else if (session?.tipo !== "Ambos" && "Vendedor") {
+    redirect("/");
   }
 
   return (

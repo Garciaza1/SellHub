@@ -45,7 +45,7 @@ const MeusProdutos: React.FC<MeusProdutosProps> = ({ user_id }) => {
               <div className="flex justify-center">
                 <img
                   className="my-3 rounded-lg"
-                  src={product.imagem}
+                  src={`${product.imagem}`}
                   alt={product.nome}
                   width={180}
                 />

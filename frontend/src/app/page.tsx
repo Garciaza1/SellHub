@@ -9,8 +9,6 @@ const safeMetadata = {
 };
 
 export default async function Home() {
-
-
   return (
     <>
       <HeaderMenu metadata={safeMetadata} />

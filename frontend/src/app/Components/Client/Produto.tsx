@@ -59,19 +59,20 @@ const Produto: React.FC<produtoProps> = ({ vendedor }) => {
               className="bg-zinc-900 p-12 py-20 rounded-xl flex justify-evenly text-center"
             >
               <img
-                className="my-3 rounded-lg min-w-96"
+                className="my-3 rounded-lg size-min object-cover "
+                style={{width:"970px", height:"auto"}}
                 src={product.imagem}
                 alt={product.imagem_nome}
               />
               <div className="p-6 rounded-lg mx-2">
-                <div className="text-center font-semibold text-2xl my-2">
+                <div className="text-center font-semibold text-2xl my-2" >
                   {product.nome}
                 </div>
                 <hr />
                 <div className="text-start font-semibold text-sm my-3">
                   Código: {product.codigo}
                 </div>
-                <div className="text-start font-semibold text-red-600 text-2xl my-5">
+                <div className="text-start font-bold text-green-500 text-2xl my-5">
                   <p>R$ {product.preco}</p>
                 </div>
                 <div className="text-start font-semibold text-lg my-4">
@@ -93,7 +94,8 @@ const Produto: React.FC<produtoProps> = ({ vendedor }) => {
                 <div className="text-start font-semibold text-lg my-4">
                   Quantidade em estoque: {product.quantidade}
                 </div>
-                <div className="text-start text-sm my-8">
+                <hr></hr>
+                <div className="text-start text-sm my-7">
                   <p className="my-2">Vendedor:</p>
                   <p>
                     Nome:{" "}
@@ -147,12 +149,3 @@ const Produto: React.FC<produtoProps> = ({ vendedor }) => {
   );
 }
 export default Produto;
-
-{
-  /* <a
-                  href={`http://localhost:3000/Clients/Product/Checkout/${product.id}`}
-                  className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:mt-3 duration-300"
-                  >
-                  
-                  </a> */
-}
