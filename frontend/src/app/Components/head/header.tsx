@@ -35,10 +35,7 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
     // email = session.email;
   }
 
-  // const handleSignOut = () => {
-  //   signOut({ callbackUrl: '/' });
 
-  // };
 
   const renderVendedorLinks = () => (
     <>

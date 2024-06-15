@@ -29,8 +29,8 @@ router.get('/User/Products/Get/:user_id', product.getUserProduct)
 router.post('/Vendas/Post/Compra', venda.createVenda);
 
 router.get('/Vendas/GetAll', venda.getAll);
-router.get('/Vendas/Client/Get', venda.getClientVenda);
-router.get('/Vendas/User/Get', venda.getUserVendas);
+router.get('/Vendas/Client/Get/:id', venda.getClientVenda);
+router.get('/Vendas/User/Get/:user_id', venda.getUserVendas);
 
 //rota dashboard
 router.get('/Dashboard/Vendedor/DoDia/:id', dashboard.SomaVendasDoDiaS);

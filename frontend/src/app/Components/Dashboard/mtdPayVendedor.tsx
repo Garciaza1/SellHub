@@ -11,7 +11,14 @@ import {
 } from "chart.js";
 
 // Register Chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface SaleData {
   venda_data: string;
@@ -26,7 +33,6 @@ interface MtdPayProps {
   salesData: SaleData[];
 }
 
-
 const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {
   if (!salesData || salesData.length === 0) {
     return <p>No sales data available</p>;
@@ -34,10 +40,13 @@ const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // meses são indexados de 0 a 11
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    const MyDateString =
+      ("0" + date.getDate()).slice(-2) +
+      "/" +
+      ("0" + (date.getMonth() + 1)).slice(-2) +
+      "/" +
+      date.getFullYear();
+    return MyDateString;
   };
 
   const groupedData: { [key: string]: { [key: string]: number } } = {};

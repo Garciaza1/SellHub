@@ -45,10 +45,13 @@ const QntdXvalor: React.FC<DoDiaProps> = ({ salesData }) => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // meses são indexados de 0 a 11
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    const MyDateString =
+      ("0" + date.getDate()).slice(-2) +
+      "/" +
+      ("0" + (date.getMonth() + 1)).slice(-2) +
+      "/" +
+      date.getFullYear();
+    return MyDateString;
   };
 
   const formattedDates = salesData.map((sale) => formatDate(sale.venda_data));

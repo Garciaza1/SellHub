@@ -72,7 +72,7 @@ const vendaController = {
         if (!id) {
             return res.status(400).json({ error: 'ID is required' });
         }
-        const query = 'SELECT * FROM vendas WHERE id = ?';
+        const query = 'SELECT * FROM vendas WHERE user_id = ?';
 
         db.query(query, [id], (err, results) => {
             if (err) {
@@ -92,7 +92,7 @@ const vendaController = {
         if (!user_id) {
             return res.status(400).json({ error: 'User ID is required' });
         }
-        const query = 'SELECT * FROM vendas WHERE user_id = ?';
+        const query = 'SELECT * FROM vendas WHERE vendedor_id = ?';
 
         db.query(query, [user_id], (err, results) => {
             if (err) {

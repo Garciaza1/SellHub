@@ -26,15 +26,12 @@ const authOptions: NextAuthOptions = {
           const user = response.data.user;
 
           if (user) {
-            
-            // console.log(user);
             return {
               id: user.id,
-              nome: user.nome,
+              name: user.nome,
               email: user.email,
               tipo: user.tipo,
             };
-
           } else {
             throw new Error("Invalid credentials");
           }
@@ -67,30 +64,29 @@ const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async redirect({ baseUrl }) {
+    async redirect({ url, baseUrl }) {
       const response = await fetch(`${baseUrl}/api/auth/session`);
       const data = await response.json();
-      const user = data.user;
+      const user = data?.user;
 
       if (user?.tipo) {
         if (user.tipo === "Vendedor") {
-          return "http://localhost:3000/Sellers/Dashboard";
+          return `${baseUrl}/Sellers/Dashboard`;
         } else if (user.tipo === "Cliente") {
-          return "http://localhost:3000/";
+          return baseUrl;
         }
       }
-      return "http://localhost:3000/";
+      return baseUrl;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-// export default NextAuth(authOptions);
-// Export a named export for each HTTP method instead.
-// export{ authOptions as GET, authOptions as POST };
-
 const authHandler = NextAuth(authOptions);
+
 export const GET = (req: NextApiRequest, res: NextApiResponse) =>
   authHandler(req, res);
 export const POST = (req: NextApiRequest, res: NextApiResponse) =>
   authHandler(req, res);
+
+export default authHandler;

@@ -9,6 +9,7 @@ interface Venda {
   total_vendas: number;
   quantidade: number;
   sts_venda: string;
+  venda_data: string;
 }
 
 interface VendasMapProps {
@@ -34,6 +35,7 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
             total_vendas: sale.total_vendas,
             quantidade: sale.quantidade,
             sts_venda: sale.sts_venda,
+            venda_data: sale.venda_data,
           });
         }
       }
@@ -48,9 +50,10 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
   }
 
   return (
-    <div style={{width: '250%'}}>
-      <h1>Mapa de Vendas por CEP</h1>
+    <div className='p-3' style={{width: '250%'}}>
+      <h1 className='mx-4 text-xl font-bold '>Mapa de Vendas por CEP</h1>
       <MapContainer
+      className='rounded-xl mt-2'
         center={[-14.235004, -51.92528]}
         zoom={4}
         style={{ height: '600px', width: '100%' }}
@@ -77,6 +80,7 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
           >
             <Popup>
               <strong>Quantidade:</strong> {marker.quantidade} <br />
+              <strong>Ultima Venda:</strong> {marker.venda_data} <br />
             </Popup>
           </Marker>
         ))}

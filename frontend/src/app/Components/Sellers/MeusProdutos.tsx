@@ -25,7 +25,7 @@ const MeusProdutos: React.FC<MeusProdutosProps> = ({ user_id }) => {
   }, [user_id]);
 
   return (
-    <div className="">
+    <div className="container">
       <div className="text-center mb-5 text-4xl font-semibold">
         Meus produtos
       </div>
