@@ -2,6 +2,8 @@ import { metadata } from "./layout";
 import HeaderMenu from "./Components/head/header";
 import FooterMenu from "./Components/foot/footer";
 import TodosProdutos from "./Components/Client/Produtos";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const safeMetadata = {
   title: typeof metadata.title === "string" ? metadata.title : "",

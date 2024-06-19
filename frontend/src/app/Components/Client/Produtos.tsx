@@ -5,6 +5,7 @@ import axios from "axios";
 const TodosProdutos = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const pegaProdutos = async () => {
@@ -19,14 +20,44 @@ const TodosProdutos = () => {
         setProducts(response.data);
       } catch (err) {
         setError("Erro ao enviar os dados: " + err);
+      } finally {
+        setLoading(false);
       }
     };
 
     pegaProdutos();
   }, []);
-  console.log(products);
+
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="text-center mb-5 text-4xl font-semibold">Produtos</div>
+        <div
+          className="bg-zinc-900 p-12 py-20 rounded-xl flex flex-wrap justify-center text-center "
+          style={{ height: "65vh", width: "auto" }}
+        >
+          {[...Array(3).keys()].map((index) => (
+            <div
+              key={index}
+              className="bg-zinc-950 px-6 w-72 h-96 rounded-lg mx-4 mb-4 animate-pulse flex justify-center "
+            >
+              <div className="grid content-end w-full">
+                <div className="bg-zinc-800 h-2 rounded-lg p-5 mx-4 mb-4 animate-pulse"></div>
+                <div className="bg-zinc-800 h-2 rounded-lg p-5 mx-4 mb-4 animate-pulse"></div>
+                <div className="bg-zinc-800 h-2 rounded-lg p-5 mx-4 mb-4 animate-pulse"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{ transition: "opacity 0.3s ease-in-out" }}
+    >
       <div className="text-center mb-5 text-4xl font-semibold">Produtos</div>
       <div className="bg-zinc-900 p-12 py-20 rounded-xl flex flex-wrap justify-center text-center">
         {error ? (

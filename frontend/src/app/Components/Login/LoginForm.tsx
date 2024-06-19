@@ -1,8 +1,9 @@
 'use client'
-// import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation'
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function LoginForm() {
@@ -10,11 +11,12 @@ export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [error, setError] = useState('');
+    const [loading, setloading] = useState(false)
     const router = useRouter();
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setloading(true)
         // Aqui você pode enviar os dados de login para a sua API
         try {
             // Coloque aqui a lógica de autenticação
@@ -41,6 +43,8 @@ export default function LoginForm() {
         } catch (error) {
             console.error('Erro ao fazer login:', error);
             setError(error.message);
+        }finally{
+            setloading(false)
         }
     };
 
@@ -83,6 +87,12 @@ export default function LoginForm() {
                     <a href='../../' className='mt-2'>Cancelar</a>
                 </div>
             </div>
+            {/* loading msg */}
+            {loading && 
+                <div>
+                    <FontAwesomeIcon icon={faSpinner} className='animate-spin text-xl'/>
+                </div> 
+            }
             {/* error message */}
             {error &&
                 <div className="error text-red-600 font-semibold text-center mt-5">

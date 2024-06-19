@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import GetCep from '../../lib/helpers/GetCep';
+import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import GetCep from "../../lib/helpers/GetCep";
+import Image from "next/image";
+import mapa from "../../../assets/mapa.png";
 
 interface Venda {
   cep: string;
@@ -23,6 +25,7 @@ interface Coordenadas {
 
 const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
   const [markers, setMarkers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
 
   useEffect(() => {
     const fetchMarkers = async () => {
@@ -40,23 +43,61 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
         }
       }
       setMarkers(markersArray);
+      setLoading(false); // Marca o carregamento como completo após buscar os marcadores
     };
 
     fetchMarkers();
   }, [salesData]);
 
+  if (loading) {
+    return (
+      <div className="p-3">
+        <h1 className="mx-4 text-xl font-bold">Carregando Mapa...</h1>
+        <div className="map-container blur">
+          {/* Exibir um placeholder enquanto carrega */}
+          {/* print do mapa na pasta prints */}
+          <div className="map-placeholder"></div>
+        </div>
+      </div>
+    );
+  }
+
   if (!markers || markers.length === 0) {
-    return <p>No sales data available</p>;
+    return (
+      <div className="p-3" style={{ width: "250%" }}>
+        <h1 className="mx-4 text-xl font-bold">Carregando Mapa...</h1>
+        <div className="map-container blur">
+          {/* Exibir um placeholder enquanto carrega */}
+          <Image
+            className="rounded-xl p-5"
+            height={400}
+            quality={75}
+            alt=""
+            src={mapa}
+            placeholder="blur"
+            style={{ width: "100%" }}
+          />
+
+          {/* <img
+            className=""
+            src=""
+            alt=""
+            style={{ height: "600px", width: "100%" }}
+          /> */}
+          <div className="map-placeholder"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className='p-3' style={{width: '250%'}}>
-      <h1 className='mx-4 text-xl font-bold '>Mapa de Vendas por CEP</h1>
+    <div className="p-3" style={{ width: "250%" }}>
+      <h1 className="mx-4 text-xl font-bold ">Mapa de Vendas por CEP</h1>
       <MapContainer
-      className='rounded-xl mt-2'
+        className="rounded-xl mt-2"
         center={[-14.235004, -51.92528]}
         zoom={4}
-        style={{ height: '600px', width: '100%' }}
+        style={{ height: "600px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -68,12 +109,12 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
             position={marker.position}
             icon={L.icon({
               iconUrl:
-                'https://leafletjs.com/examples/custom-icons/leaf-green.png',
+                "https://leafletjs.com/examples/custom-icons/leaf-green.png",
               iconSize: [38, 95],
               iconAnchor: [22, 94],
               popupAnchor: [-3, -76],
               shadowUrl:
-                'https://leafletjs.com/examples/custom-icons/leaf-shadow.png',
+                "https://leafletjs.com/examples/custom-icons/leaf-shadow.png",
               shadowSize: [50, 64],
               shadowAnchor: [4, 62],
             })}
