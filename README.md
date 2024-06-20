@@ -30,21 +30,18 @@ git clone https://github.com/Garciaza1/SellHub.git
 ```
 
 Navegue até o diretório do projeto:
-```
-bash
+```bash
 cd SellHub
 ```
 
 Instale as dependências do front-end:
-```
-bash
+```bash
 cd frontend
 npm install
 ```
 
 Instale as dependências do back-end:
-```
-bash
+```bash
 cd ../backend
 npm install
 ```
@@ -53,28 +50,24 @@ npm install
 #Configuração
 
 Crie um arquivo .env no diretório backend com as seguintes variáveis de ambiente:
-```
-env
+```env
 DB_HOST=localhost
 DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
 DB_NAME=sellhub
 ```
 Execute o servidor MySQL e crie o banco de dados:
-```
-sql
+```sql
 CREATE DATABASE sellhub;
 ```
 
 Inicie o servidor back-end:
-```
-bash
+```bash
 cd backend
 npm run dev
 ```
 Inicie o servidor front-end:
-```
-bash
+```bash
 cd ../frontend
 npm run dev
 ```
