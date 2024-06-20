@@ -47,7 +47,7 @@ npm install
 ```
 
 
-#Configuração
+# Configuração
 
 Crie um arquivo .env no diretório backend com as seguintes variáveis de ambiente:
 ```env
@@ -66,11 +66,13 @@ Inicie o servidor back-end:
 cd backend
 npm run dev
 ```
+
 Inicie o servidor front-end:
 ```bash
 cd ../frontend
 npm run dev
 ```
+
 Abra o navegador e acesse http://localhost:3000.
 
 
