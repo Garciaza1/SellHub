@@ -92,9 +92,22 @@ Se você quiser contribuir com este projeto, siga estas etapas:
 
 3 - Commit as mudanças (git commit -m 'Adiciona nova feature').
 
+
 4 - Push a branch (git push origin feature/nova-feature).
 
 5 - Abra um Pull Request.
+
+
+# Screenshots
+
+![Captura de Tela (81)](https://github.com/Garciaza1/SellHub/assets/102680004/b5f1d02a-93c6-4df4-904c-793667f0abce)
+![Captura de Tela (73)](https://github.com/Garciaza1/SellHub/assets/102680004/af8cb7ac-ce02-462e-a0fc-9166f69ceabf)
+![Captura de Tela (72)](https://github.com/Garciaza1/SellHub/assets/102680004/8a4ce58f-044d-4ac5-a705-f9b81e006372)
+![Captura de Tela (70)](https://github.com/Garciaza1/SellHub/assets/102680004/dda86b68-bfb6-4ffa-8632-cf390a1d9ef6)
+![Captura de Tela (69)](https://github.com/Garciaza1/SellHub/assets/102680004/83b0d105-3c79-492d-bcb9-183a60472aa8)
+![Captura de Tela (67)](https://github.com/Garciaza1/SellHub/assets/102680004/e9c7a016-9472-4adf-bebc-4e8302f063a7)
+![Captura de Tela (66)](https://github.com/Garciaza1/SellHub/assets/102680004/db5c1947-2358-411c-996b-9a25827e6707)
+![Captura de Tela (65)](https://github.com/Garciaza1/SellHub/assets/102680004/c5a57aa4-b59b-4f46-8972-52b43f4e81b6)
 
 
 # Licença
