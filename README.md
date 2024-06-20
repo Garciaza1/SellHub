@@ -80,18 +80,25 @@ Abra o navegador e acesse http://localhost:3000.
 **backend:** Contém o código do back-end desenvolvido com Node.js e JavaScript.
 
 
-#Contribuição
+# Contribuição
+
 Se você quiser contribuir com este projeto, siga estas etapas:
 
-- 1 - De Fork neste repositório.
-- 2 - Crie uma branch com a nova feature (git checkout -b feature/nova-feature).
-- 3 - Commit as mudanças (git commit -m 'Adiciona nova feature').
-- 4 - Push a branch (git push origin feature/nova-feature).
-- 5 - Abra um Pull Request.
+1 - De Fork neste repositório.
+  
+2 - Crie uma branch com a nova feature (git checkout -b feature/nova-feature).
+
+3 - Commit as mudanças (git commit -m 'Adiciona nova feature').
+
+4 - Push a branch (git push origin feature/nova-feature).
+
+5 - Abra um Pull Request.
 
 
-#Licença
+# Licença
+
 Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para detalhes.
 
-#Contato
+# Contato
+
 Gustavo Ribeiro Garcia - [LinkedIn](https://www.linkedin.com/in/gustavo-garcia-287356232/) - gustavogarcia56336@gmail.com
