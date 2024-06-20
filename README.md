@@ -83,11 +83,11 @@ Abra o navegador e acesse http://localhost:3000.
 #Contribuição
 Se você quiser contribuir com este projeto, siga estas etapas:
 
-1 - De Fork neste repositório.
-2 - Crie uma branch com a nova feature (git checkout -b feature/nova-feature).
-3 - Commit as mudanças (git commit -m 'Adiciona nova feature').
-4 - Push a branch (git push origin feature/nova-feature).
-5 - Abra um Pull Request.
+- 1 - De Fork neste repositório.
+- 2 - Crie uma branch com a nova feature (git checkout -b feature/nova-feature).
+- 3 - Commit as mudanças (git commit -m 'Adiciona nova feature').
+- 4 - Push a branch (git push origin feature/nova-feature).
+- 5 - Abra um Pull Request.
 
 
 #Licença
