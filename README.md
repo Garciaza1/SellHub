@@ -22,7 +22,7 @@ SellHub é um projeto de e-commerce desenvolvido com Next.js no front-end e Node
 - NPM ou Yarn
 
 
-##Instalação
+## Instalação
 
 Clone o repositório:
 ```bash
