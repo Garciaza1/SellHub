@@ -3,12 +3,14 @@ import React, { useState, useEffect } from "react";
 import {
   getDataVendedorPorDia,
   getDataVendedorDoDia,
+  getMtdPay,
 } from "../../lib/helpers/GetDashboard";
 import DoDiaVendedor from "../Dashboard/VendedorDoDia";
 import PorDiaVendedor from "../Dashboard/VendedorPorDia";
 import MtdPayVendedor from "../Dashboard/mtdPayVendedor";
 import VendasStatusPieChart from "../Dashboard/PieConfirmed";
 import VendasMap from "../Dashboard/VendaMap";
+import QntdXvalor from "../Dashboard/VendedorQntXValor";
 
 interface DashboardProps {
   user_id: string | undefined;
@@ -17,6 +19,7 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
   const [vendasDoDia, setVendasDoDia] = useState([]);
   const [vendasPorDia, setVendasPorDia] = useState([]);
+  const [MtdPay, setMtdPay] = useState([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,6 +41,17 @@ const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
         setError("Erro ao enviar os dados: " + err);
       }
     };
+
+    const FecthMtdPay = async () => {
+      try {
+        const porDia = await getMtdPay(user_id);
+        const response = porDia;
+        setMtdPay(response);
+      } catch (err) {
+        setError("Erro ao enviar os dados: " + err);
+      }
+    };
+    FecthMtdPay();
     FetchVendasDoDia();
     FetchVendasPorDia();
   }, [user_id]);
@@ -84,7 +98,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
 
         <div className="w-5/12 p-5">
           <div className="font-bold text-xl">Método de Pagamento:</div>
-          <MtdPayVendedor salesData={vendasDoDia} />
+          <MtdPayVendedor salesData={MtdPay} />
         </div>
       </section>
     </div>

@@ -39,7 +39,7 @@ const DoDiaVendedor: React.FC<DoDiaProps> = ({ salesData }) => {
   if (!salesData) {
     return <p>No sales data available</p>;
   }
-  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const MyDateString =
@@ -68,6 +68,15 @@ const DoDiaVendedor: React.FC<DoDiaProps> = ({ salesData }) => {
   const options: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
+    animations: {
+      tension: {
+        duration: 2000,
+        easing: "easeInOutQuad",
+        from: 0.4,
+        to: 0.2,
+        loop: true,
+      }, // Set tension between 0 (no tension) and 1 (high tension)
+    },
     scales: {
       x: {
         display: true,

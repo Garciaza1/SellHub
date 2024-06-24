@@ -112,12 +112,12 @@ const VendasTable: React.FC<MinhasVendasProps> = ({ user_id }) => {
               >
                 <thead>
                   <tr>
-                    <th className="text-center border bg-gray-500 h-14 w-42 px-2 animate-pulse"></th>
+                    <th className="border bg-gray-500 h-14 w-42 px-2 animate-pulse"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="text-center border bg-gray-500 h-14 my-1 w-42 px-2 animate-pulse"></td>
+                    <td className="border bg-gray-500 h-14 my-1 w-42 px-2 animate-pulse"></td>
                   </tr>
                 </tbody>
               </table>

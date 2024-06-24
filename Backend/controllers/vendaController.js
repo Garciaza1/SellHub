@@ -81,7 +81,7 @@ const vendaController = {
                     });
                 }
 
-                console.log("primeira etapa realizada; affectedRows: " + results.affectedRows)
+                console.log("primeira etapa realizada; affectedRows: " + results.changedRows)
 
                 // Depois atualiza o produto
                 db.query(updateProdutoQuery, [diferençaQuantidade, id_produto, id], (err, results) => {
@@ -91,7 +91,7 @@ const vendaController = {
                         });
                     }
 
-                    console.log("segunda etapa realizada; affectedRows: " + results.affectedRows)
+                    console.log("segunda etapa realizada; affectedRows: " + results.changedRows)
 
                     // Se tudo correu bem, faz commit da transação
                     db.commit(err => {

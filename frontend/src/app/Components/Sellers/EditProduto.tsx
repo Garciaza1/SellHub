@@ -1,55 +1,51 @@
 "use client";
-import React, { useState, FormEvent, ChangeEvent, useRef } from "react";
+import axios from "axios";
+import React, { useState, useEffect, FormEvent, useRef, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 
-interface ProdutoFormProps {
-  user_id: string | undefined;
+interface EditProdutoProps {
+  id: string;
 }
 
-function radomCode(length: number) {
-  let result = "";
-  const characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
-
-function ramdomnumber(length: number) {
-  let result = "";
-  const characters = "123456789";
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
-
-const codigoDeBarras = ramdomnumber(1) + radomCode(11);
-
-const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
+const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
   const router = useRouter();
+  const [product, setProduct] = useState<any>({
+    nome: "",
+    descricao: "",
+    imagem: "",
+    imagem_nome: "",
+    preco: "",
+    quantidade: "",
+    codigo: "",
+    garantia: "",
+    categoria: "",
+    marca: "",
+    user_id: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [imagemProduto, setImagemProduto] = useState<File | null>(null);
   const [imagemNome, setImagemNome] = useState("");
 
-  const [erro, setError] = useState<String | unknown>(null);
-  const [nome, setNome] = useState("");
-  const [preco, setPreco] = useState("");
-  const [quantidade, setQuant] = useState("");
-  const [descricao, setDesc] = useState("");
-  const [codigo, setCodigo] = useState(codigoDeBarras);
-  const [garantia, setGarantia] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [marca, setMarca] = useState("");
-  // Adicione aqui os outros estados para os campos do formulário
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/Product/Get/${id}`
+        );
+        setProduct(response.data[0]);
+      } catch (err) {
+        setError("Erro ao enviar os dados: " + err);
+      } finally {
+        console.log(product)
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -68,36 +64,49 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
     }
   };
 
-  const handleProductForm = async (e: FormEvent<HTMLFormElement>) => {
+  const handleProductEdit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aqui você pode construir o objeto com os dados do formulário
-    const data = {
-      nome,
-      descricao,
-      imagem: imagemProduto,
-      imagem_nome: imagemNome,
-      preco,
-      quantidade,
-      codigo,
-      garantia,
-      categoria,
-      marca,
-      user_id,
-    };
+    const formData = new FormData();
+    
+    formData.append("nome", product.nome);
+    formData.append("descricao", product.descricao);
+    formData.append("preco", product.preco);
+    formData.append("quantidade", product.quantidade);
+    formData.append("codigo", product.codigo);
+    formData.append("garantia", product.garantia);
+    formData.append("categoria", product.categoria);
+    formData.append("marca", product.marca);
+    formData.append("user_id", product.user_id);
 
-    console.log(data);
-    // Aqui você pode enviar os dados para a API usando axios
+    if (imagemProduto) {
+      formData.append("imagem", imagemProduto);
+      formData.append("imagem_nome", imagemNome);
+    }
+
     try {
-      const response = await axios.post(
-        "http://localhost:5000/Products/Post/Create",
-        data,
+        console.log()
+      const response = await axios.put(
+        "http://localhost:5000/Products/Put/Edit",
+        {
+            nome:product.nome,
+            descricao: product.descricao, 
+            imagem: imagemProduto, 
+            imagem_nome: imagemNome,
+            preco: product.preco, 
+            quantidade: product.quantidade, 
+            codigo: product.codigo, 
+            garantia: product.garantia, 
+            categoria: product.categoria, 
+            marca: product.marca, 
+            user_id: product.user_id,
+            id
+        }
       );
       if (response.data) {
         console.log(response.data);
-        router.push("http://localhost:3000/Sellers/MeusProdutos");
+        router.push("/Sellers/MeusProdutos");
       }
     } catch (error) {
-      setError(error.response?.data.error || error.message);
       console.error("Erro ao enviar os dados:", error);
     }
   };
@@ -110,10 +119,15 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
     }
   };
 
+
+  if (loading) {
+    return <></>;
+  }
+
   return (
-    <div className="w-8/12 ">
+    <div className="w-8/12 mx-auto">
       <div className="bg-zinc-950 p-8 rounded-xl w-full">
-        <form onSubmit={handleProductForm}>
+        <form onSubmit={handleProductEdit}>
           <div className="flex justify-evenly">
             {/* metade da esquerda */}
             <div className="w-6/12 mx-1">
@@ -122,8 +136,10 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                   <span className="block text-lg">Nome do produto:</span>
                   <input
                     type="text"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
+                    value={product.nome}
+                    onChange={(e) =>
+                      setProduct({ ...product, nome: e.target.value })
+                    }
                     className="py-1 rounded-xl w-full mt-2  bg-zinc-700 text-center"
                     required
                   />
@@ -134,16 +150,19 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                 <label className="block mb-2 font-medium">
                   <span className="block text-lg">Descrição Do Produto:</span>
                   <textarea
-                    value={descricao}
-                    onChange={(e) => setDesc(e.target.value)}
+                    value={product.descricao}
+                    onChange={(e) =>
+                      setProduct({ ...product, descricao: e.target.value })
+                    }
                     className="py-3 ps-3 rounded-xl w-full mt-2 bg-zinc-700 "
                     required
                   ></textarea>
                 </label>
               </div>
 
-              <div className="my-3 flex flex-col ">
+              <div className="my-3  flex-col ">
                 <span className="block text-lg">Imagem do Produto:</span>
+                <p className="text-red-600 text-sm">Se não quiser trocar apenas deixe como está!</p>
                 <label className="block mb-2 font-medium cursor-pointer flex justify-center mt-2 bg-zinc-900 hover:bg-zinc-700 py-1 rounded-lg w-8/12 ms-20">
                   Selecione
                   <input
@@ -152,11 +171,11 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                     accept="image/png, image/jpg, image/gif, image/jpeg"
                     onChange={handleFileChange}
                     className="hidden"
-                    required
+                    ref={fileInputRef}
                   />
                 </label>
-                {imagemProduto ? (
-                  <label className={`w-10/12 border rounded-xl p-2 ms-10 `}>
+                {imagemProduto && (
+                  <label className={`w-10/12 border rounded-xl p-2 ms-10`}>
                     {imagemNome}
                     <button
                       type="button"
@@ -169,9 +188,11 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                       />
                     </button>
                   </label>
-                ) : (
-                  ""
                 )}
+                <div className="flex justify-start pt-3 h-20">
+                    <p className="text-sm mx-3">Imagem antiga =&gt;</p>
+                <img src={product.imagem} alt={product.imagem_nome} className="mb-0 pb-0" />
+                </div>
               </div>
             </div>
 
@@ -181,12 +202,14 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                 <div className="w-6/12 mx-2">
                   <div className="mb-4">
                     <label className="block mb-2 font-medium">
-                      <span className="block text-lg">Quantidade:</span>
+                      <span className="block text-lg">Quantidade em estoque:</span>
                       <input
                         type="number"
                         step={"1"}
-                        value={quantidade}
-                        onChange={(e) => setQuant(e.target.value)}
+                        value={product.quantidade}
+                        onChange={(e) =>
+                          setProduct({ ...product, quantidade: e.target.value })
+                        }
                         className="py-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
                         required
                       />
@@ -201,8 +224,10 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                       <input
                         type="number"
                         step={"0.01"}
-                        value={preco}
-                        onChange={(e) => setPreco(e.target.value)}
+                        value={product.preco}
+                        onChange={(e) =>
+                          setProduct({ ...product, preco: e.target.value })
+                        }
                         className="p-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
                         required
                       />
@@ -217,8 +242,10 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                     <span className="block text-lg">Codigo de Barras:</span>
                     <input
                       type="text"
-                      value={codigo}
-                      onChange={(e) => setCodigo(e.target.value)}
+                      value={product.codigo}
+                      onChange={(e) =>
+                        setProduct({ ...product, codigo: e.target.value })
+                      }
                       className="p-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
                       required
                     />
@@ -232,9 +259,10 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                     <span className="block text-lg">Categoria:</span>
                     <input
                       type="text"
-                      placeholder="Games | Roupa | Casa | Esporte"
-                      value={categoria}
-                      onChange={(e) => setCategoria(e.target.value)}
+                      value={product.categoria}
+                      onChange={(e) =>
+                        setProduct({ ...product, categoria: e.target.value })
+                      }
                       className="p-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
                       required
                     />
@@ -249,8 +277,10 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                       <span className="block text-lg">Garantia em Meses</span>
                       <input
                         type="number"
-                        value={garantia}
-                        onChange={(e) => setGarantia(e.target.value)}
+                        value={product.garantia}
+                        onChange={(e) =>
+                          setProduct({ ...product, garantia: e.target.value })
+                        }
                         className="p-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
                         required
                       />
@@ -264,9 +294,10 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                       <span className="block text-lg">Marca:</span>
                       <input
                         type="text"
-                        placeholder="Omo | Candida | Veja"
-                        value={marca}
-                        onChange={(e) => setMarca(e.target.value)}
+                        value={product.marca}
+                        onChange={(e) =>
+                          setProduct({ ...product, marca: e.target.value })
+                        }
                         className="p-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
                         required
                       />
@@ -280,16 +311,14 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="mt-5 text-white bg-zinc-900 hover:bg-zinc-700 rounded-lg px-3 py-2"
+              className="text-white bg-zinc-900 hover:bg-zinc-700 rounded-lg px-3 py-2"
             >
               Enviar
             </button>
           </div>
         </form>
-        {erro}
       </div>
     </div>
   );
 };
-
-export default ProdutoForm;
+export default EditProduto;

@@ -115,6 +115,7 @@ const VendasEdit: React.FC<VendaEditProps> = ({ id }) => {
                     <span className="block text-lg">Status da Venda:</span>
                     <input
                       type="text"
+                      readOnly={true}
                       value={vendas.sts_venda}
                       onChange={(e) => setVendas({ ...vendas, sts_venda: e.target.value })}
                       className="py-1 rounded-xl w-full mx-0 mt-2 bg-zinc-700 text-center"

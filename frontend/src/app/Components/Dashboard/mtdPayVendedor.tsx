@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartData,
 } from "chart.js";
 
 // Register Chart.js components
@@ -21,12 +22,8 @@ ChartJS.register(
 );
 
 interface SaleData {
-  venda_data: string;
-  total_vendas: number;
-  quantidade: number;
+  numero_vendas: number;
   mtd_pay: string;
-  cep: string;
-  sts_venda: string;
 }
 
 interface MtdPayProps {
@@ -38,71 +35,39 @@ const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {
     return <p>No sales data available</p>;
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const MyDateString =
-      ("0" + date.getDate()).slice(-2) +
-      "/" +
-      ("0" + (date.getMonth() + 1)).slice(-2) +
-      "/" +
-      date.getFullYear();
-    return MyDateString;
-  };
-
-  const groupedData: { [key: string]: { [key: string]: number } } = {};
-
-  salesData.forEach((sale) => {
-    const formattedDate = formatDate(sale.venda_data);
-    if (!groupedData[formattedDate]) {
-      groupedData[formattedDate] = { credito: 0, debito: 0, pix: 0, boleto: 0 };
-    }
-    if (groupedData[formattedDate][sale.mtd_pay.toLowerCase()] !== undefined) {
-      groupedData[formattedDate][sale.mtd_pay.toLowerCase()]++;
-    }
-  });
-
-  const labels = Object.keys(groupedData);
-  const creditoData = labels.map((label) => groupedData[label].credito);
-  const debitoData = labels.map((label) => groupedData[label].debito);
-  const pixData = labels.map((label) => groupedData[label].pix);
-  const boletoData = labels.map((label) => groupedData[label].boleto);
+  const backgroundColors = [
+    "rgba(255, 99, 132)",
+    "rgba(255, 159, 64)",
+    "rgba(255, 205, 86)",
+    "rgba(75, 192, 192)",
+  ];
+  // Extracting payment methods and number of sales from salesData
+  // const labels = ["Credito", "Debito", "Pix", "Boleto"];
+  const labels = salesData.map((label) => label.mtd_pay);
+  const nVendas = salesData.map((numbers) => numbers.numero_vendas)
 
   const data = {
-    labels,
+    labels: labels,
     datasets: [
       {
-        label: "Credito",
-        data: creditoData,
-        backgroundColor: "rgb(75, 192, 192)",
+        axis: 'y',
+        label: "Métodos de pagamento",
+        data: nVendas,
+        backgroundColor: backgroundColors,
         borderColor: "rgba(75, 192, 192, 0.2)",
-      },
-      {
-        label: "Debito",
-        data: debitoData,
-        backgroundColor: "rgb(54, 162, 235)",
-        borderColor: "rgba(54, 162, 235, 0.2)",
-      },
-      {
-        label: "Pix",
-        data: pixData,
-        backgroundColor: "rgb(255, 206, 86)",
-        borderColor: "rgba(255, 206, 86, 0.2)",
-      },
-      {
-        label: "Boleto",
-        data: boletoData,
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgba(255, 99, 132, 0.2)",
       },
     ],
   };
 
   const options = {
     responsive: true,
+    barThickness: 60,
     maintainAspectRatio: false,
     scales: {
       x: {
+        suggestedMax: 6,
         display: true,
+        categoryAxis: true,
         title: {
           display: true,
           text: "Data",
@@ -117,6 +82,7 @@ const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {
         },
       },
     },
+    indexAxis: 'y',
   };
 
   return (

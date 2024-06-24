@@ -5,7 +5,11 @@ const connection = mysql.createConnection({
   host: 'localhost',//172.17.0.2
   user: 'root',
   password: '',
-  database: 'sellhub'
+  database: 'sellhub',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  connectTimeout: 60000 // 1 minuto
 });
 
 connection.connect((err) => {

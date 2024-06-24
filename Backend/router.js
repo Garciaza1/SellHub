@@ -20,9 +20,10 @@ router.get('/Users/GetAll', user.getAllUsers);
 
 // rotas produto:
 router.post('/Products/Post/Create', product.createProduct)
+router.put('/Products/Put/Edit', product.editProduct)
 
 router.get('/Products/GetAll', product.getAll)
-router.get('/Client/Products/Get/:id', product.getClientProduct)
+router.get('/Product/Get/:id', product.getProduct)
 router.get('/User/Products/Get/:user_id', product.getUserProduct)
 
 // ========================================================================== \\
@@ -43,6 +44,7 @@ router.get('/Vendas/User/Get/:user_id', venda.getUserVendas);
 //rota dashboard:
 router.get('/Dashboard/Vendedor/DoDia/:id', dashboard.SomaVendasDoDiaS);
 router.get('/Dashboard/Vendedor/PorDia/:id', dashboard.SomaVendasPorDiaS);
+router.get('/Dashboard/Vendedor/MtdPay/:id', dashboard.MetodoPayS);
 router.get('/Dashboard/Cliente/DoDia/:id', dashboard.SomaVendasDoDiaC);
 
 

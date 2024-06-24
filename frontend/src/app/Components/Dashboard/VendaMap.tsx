@@ -122,6 +122,7 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
             <Popup>
               <strong>Quantidade:</strong> {marker.quantidade} <br />
               <strong>Ultima Venda:</strong> {marker.venda_data} <br />
+              <strong>Total de Vendas:</strong> {marker.total_vendas} <br />
             </Popup>
           </Marker>
         ))}

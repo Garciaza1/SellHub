@@ -55,15 +55,22 @@ const PorDiaVendedor: React.FC<PorDiaProps> = ({ salesData }) => {
   };
   const formattedDates = salesData.map((sale) => formatDate(sale.venda_data));
 
-  const data: ChartData<"bar"> = {
+  const data = {
     labels: formattedDates,
     datasets: [
       {
-        label: "Total Vendas Valor",
+        label: "Total de Vendas em Valor",
         data: salesData.map((sale) => sale.total_vendas),
-        backgroundColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgb(75, 192, 192, 0.4)",
         borderColor: "rgba(75, 192, 192, 0.2)",
       },
+      {
+        type: 'line',
+        label: '1/2 Total',
+        data: salesData.map((sale) => sale.total_vendas / 2),
+        fill: false,
+        borderColor: 'rgb(54, 162, 235)'
+      }
     ],
   };
 

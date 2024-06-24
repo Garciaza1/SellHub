@@ -63,8 +63,15 @@ const QntdXvalor: React.FC<DoDiaProps> = ({ salesData }) => {
         type: 'bar' as const,
         label: "Total Vendas Valor",
         data: salesData.map((sale) => sale.total_vendas),
-        backgroundColor: "rgb(75, 192, 192)",
-        borderColor: "rgba(75, 192, 192, 0.2)",
+        backgroundColor: "rgb(75, 192, 192, 0.6)",
+        borderColor: "blue",
+      },
+      {
+        type: 'line',
+        label: "Quantidade Total x10",
+        data: salesData.map((sale) => sale.quantidade * 10),
+        backgroundColor: "red",
+        borderColor: "red",
       },
     ],
   };
