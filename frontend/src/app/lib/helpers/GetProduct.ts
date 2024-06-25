@@ -17,7 +17,7 @@ interface Product {
 
 const GetProduct = async (id: string | string[] | undefined): Promise<Product | null> => {
   try {
-    const response = await axios.get(`http://localhost:5000/Client/Products/Get/${id}`);
+    const response = await axios.get(`http://localhost:5000/Product/Get/${id}`);
     if (response.data[0]) {
       return response.data[0];
     }

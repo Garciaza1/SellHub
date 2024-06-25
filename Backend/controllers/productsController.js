@@ -14,13 +14,13 @@ const productController = {
     },
 
     createProduct:(req, res) => {
-        const {nome, descricao, imagem, imagem_nome ,preco, quantidade, codigo, garantia, categoria, marca, user_id } = req.body;
-        if (!nome || !descricao || !imagem || !imagem_nome || !preco || !quantidade || !codigo || !garantia || !categoria || !marca || !user_id) {
+        const {nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca, user_id } = req.body;
+        if (!nome || !descricao || !imagem || !preco || !quantidade || !codigo || !garantia || !categoria || !marca || !user_id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
-        const query = 'INSERT INTO produto (user_id, nome, descricao, imagem, imagem_nome, preco, quantidade, codigo, garantia, categoria, marca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        const query = 'INSERT INTO produto (user_id, nome, descricao, imagem,  preco, quantidade, codigo, garantia, categoria, marca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         
-        db.query(query, [user_id, nome, descricao, imagem, imagem_nome, preco, quantidade, codigo, garantia, categoria, marca], (err, results)=>{
+        db.query(query, [user_id, nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca], (err, results)=>{
             if (err){
                 res.status(500).json({error: 'Failed to create product, may alredy exists <br></br>' + err})
                 return;
@@ -31,12 +31,12 @@ const productController = {
     },
 
     editProduct: (req, res) => {
-        const { nome, descricao, imagem, imagem_nome, preco, quantidade, codigo, garantia, categoria, marca, id } = req.body;
-        if (!nome || !descricao || !imagem || !imagem_nome || !preco || !quantidade || !codigo || !categoria || !marca || !id) {
+        const { nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca, id } = req.body;
+        if (!nome || !descricao || !imagem || !preco || !quantidade || !codigo || !categoria || !marca || !id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
-        const query = `UPDATE produto SET nome = ?, descricao = ?, imagem = ?, imagem_nome = ?, preco = ?, quantidade = ?, codigo = ?, garantia = ?, categoria = ?, marca = ? WHERE id = ?;`;
-        db.query(query, [nome, descricao, imagem, imagem_nome, preco, quantidade, codigo, garantia, categoria, marca, id], (err, results) => {
+        const query = `UPDATE produto SET nome = ?, descricao = ?, imagem = ?, preco = ?, quantidade = ?, codigo = ?, garantia = ?, categoria = ?, marca = ? WHERE id = ?;`;
+        db.query(query, [nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca, id], (err, results) => {
             if (err) {
                 res.status(500).json({ error: 'Failed to update product, may alredy exists <br></br>' + err })
                 return;

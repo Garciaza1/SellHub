@@ -83,7 +83,7 @@ const TodosProdutos = () => {
     >
       <div className="text-center mb-5 text-4xl font-semibold">Produtos</div>
       <div className="bg-zinc-900 py-20 rounded-xl flex justify-center text-center">
-        <div className="grid gap-4 grid-cols-4 grid-rows-2 justify-center">
+        <div className="grid gap-10 grid-cols-4 grid-rows-2 justify-center">
           {error ? (
             <>
               <p>{error}</p>

@@ -40,19 +40,17 @@ const MeusProdutos: React.FC<MeusProdutosProps> = ({ user_id }) => {
               className="bg-zinc-950 p-6 rounded-lg mx-4 grid content-evenly"
               style={{ width: "23.5rem", height: "32rem" }}
             >
-              <div className="text-center font-semibold text-2xl animate-pulse bg-zinc-700 my-1 h-10"></div>
-              <div className="flex justify-center bg-zinc-700 animate-pulse">
+              <div className="text-center font-semibold text-2xl animate-pulse bg-zinc-700 my-1 h-10  rounded-xl"></div>
+              <div className="flex justify-center bg-zinc-700 animate-pulse rounded-xl">
                 <img
-                  className="my-3 rounded-lg bg-zinc-700 animate-pulse mb-10"
+                  className="my-3 bg-zinc-700 animate-pulse"
                   style={{ height: "10rem" }}
                 />
               </div>
-              <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10 "></div>
-              <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10 "></div>
-              <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10 "></div>
-              <div className="font-semibold text-lg bg-zinc-700 animate-pulse"></div>
-              <div className="font-semibold text-lg bg-zinc-700 animate-pulse"></div>
-              <div className="text-center font-semibold text-lg bg-zinc-700 animate-pulse h-10"></div>
+              <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10  rounded-xl"></div>
+              <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10  rounded-xl"></div>
+              <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10  rounded-xl"></div>
+              <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10  rounded-xl"></div>
             </div>
           ))}
         </div>

@@ -38,7 +38,6 @@ const codigoDeBarras = ramdomnumber(1) + radomCode(11);
 const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
   const router = useRouter();
   const [imagemProduto, setImagemProduto] = useState<File | null>(null);
-  const [imagemNome, setImagemNome] = useState("");
 
   const [erro, setError] = useState<String | unknown>(null);
   const [nome, setNome] = useState("");
@@ -59,12 +58,11 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
       const reader = new FileReader();
       reader.onload = (event) => {
         const result = event.target?.result;
-        if (result && typeof result === 'string') {
+        if (result && typeof result === "string") {
           setImagemProduto(result);
         }
       };
       reader.readAsDataURL(file);
-      setImagemNome(file.name);
     }
   };
 
@@ -75,7 +73,6 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
       nome,
       descricao,
       imagem: imagemProduto,
-      imagem_nome: imagemNome,
       preco,
       quantidade,
       codigo,
@@ -90,7 +87,7 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
     try {
       const response = await axios.post(
         "http://localhost:5000/Products/Post/Create",
-        data,
+        data
       );
       if (response.data) {
         console.log(response.data);
@@ -104,7 +101,6 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
 
   const clearFileInput = () => {
     setImagemProduto(null);
-    setImagemNome("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -157,7 +153,6 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                 </label>
                 {imagemProduto ? (
                   <label className={`w-10/12 border rounded-xl p-2 ms-10 `}>
-                    {imagemNome}
                     <button
                       type="button"
                       onClick={clearFileInput}
@@ -230,15 +225,103 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
                 <div className="mb-4">
                   <label className="block mb-2 font-medium">
                     <span className="block text-lg">Categoria:</span>
-                    <input
-                      type="text"
-                      placeholder="Games | Roupa | Casa | Esporte"
-                      value={categoria}
-                      onChange={(e) => setCategoria(e.target.value)}
-                      className="p-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
-                      required
-                    />
                   </label>
+
+                  <div className="flex ps-5">
+                    <div className="">
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Casa
+                        </label>
+                        <input
+                          type="radio"
+                          id="Casa"
+                          name="tipo"
+                          value="Casa"
+                          checked={categoria === "Casa"}
+                          onChange={(e) => setCategoria(e.target.value)}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Roupa
+                        </label>
+                        <input
+                          type="radio"
+                          id="Roupa"
+                          name="tipo"
+                          value="Roupa"
+                          checked={categoria === "Roupa"}
+                          onChange={(e) => setCategoria(e.target.value)}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Esporte
+                        </label>
+                        <input
+                          type="radio"
+                          id="Esporte"
+                          name="tipo"
+                          value="Esporte"
+                          checked={categoria === "Esporte"}
+                          onChange={(e) => setCategoria(e.target.value)}
+                          className="form-radio"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="ms-5">
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Games
+                        </label>
+                        <input
+                          type="radio"
+                          id="Games"
+                          name="tipo"
+                          value="Games"
+                          checked={categoria === "Games"}
+                          onChange={(e) => setCategoria(e.target.value)}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Maquiagem
+                        </label>
+                        <input
+                          type="radio"
+                          id="Maquiagem"
+                          name="tipo"
+                          value="Maquiagem"
+                          checked={categoria === "Maquiagem"}
+                          onChange={(e) => setCategoria(e.target.value)}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Tecnologia
+                        </label>
+                        <input
+                          type="radio"
+                          id="Tecnologia"
+                          name="tipo"
+                          value="Tecnologia"
+                          checked={categoria === "Tecnologia"}
+                          onChange={(e) => setCategoria(e.target.value)}
+                          className="form-radio"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 

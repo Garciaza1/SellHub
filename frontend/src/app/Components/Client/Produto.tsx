@@ -15,12 +15,13 @@ const Produto: React.FC<produtoProps> = ({ vendedor }) => {
 
   const params = useParams();
   const id = params.id;
+console.log(id)
 
   useEffect(() => {
     const pegaProduto = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/Client/Products/Get/${id}`
+          `http://localhost:5000/Product/Get/${id}`
         );
 
         if (!response || !response.data) {
@@ -30,7 +31,7 @@ const Produto: React.FC<produtoProps> = ({ vendedor }) => {
         const productData = response.data;
         setProducts(productData);
       } catch (err) {
-        setError("Erro ao enviar os dados: " + err);
+        setError("Erro ao carregar os dados: " + err);
       }
     };
 
@@ -40,7 +41,7 @@ const Produto: React.FC<produtoProps> = ({ vendedor }) => {
   const handleQuantidadeChange = (event) => {
     setQuantidade(event.target.value);
   };
-  console.log();
+  console.log(vendedor);
 
   return (
     <div className="container">

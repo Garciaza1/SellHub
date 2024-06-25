@@ -1,6 +1,12 @@
 "use client";
 import axios from "axios";
-import React, { useState, useEffect, FormEvent, useRef, ChangeEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  FormEvent,
+  useRef,
+  ChangeEvent,
+} from "react";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +21,6 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
     nome: "",
     descricao: "",
     imagem: "",
-    imagem_nome: "",
     preco: "",
     quantidade: "",
     codigo: "",
@@ -28,7 +33,6 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
   const [error, setError] = useState<string | null>(null);
 
   const [imagemProduto, setImagemProduto] = useState<File | null>(null);
-  const [imagemNome, setImagemNome] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +44,6 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
       } catch (err) {
         setError("Erro ao enviar os dados: " + err);
       } finally {
-        console.log(product)
         setLoading(false);
       }
     };
@@ -55,19 +58,18 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
       const reader = new FileReader();
       reader.onload = (event) => {
         const result = event.target?.result;
-        if (result && typeof result === 'string') {
+        if (result && typeof result === "string") {
           setImagemProduto(result);
         }
       };
       reader.readAsDataURL(file);
-      setImagemNome(file.name);
     }
   };
 
   const handleProductEdit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
-    
+
     formData.append("nome", product.nome);
     formData.append("descricao", product.descricao);
     formData.append("preco", product.preco);
@@ -80,28 +82,29 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
 
     if (imagemProduto) {
       formData.append("imagem", imagemProduto);
-      formData.append("imagem_nome", imagemNome);
+      const img = imagemProduto;
     }
 
+    const img = product.imagem;
+
     try {
-        console.log()
       const response = await axios.put(
         "http://localhost:5000/Products/Put/Edit",
         {
-            nome:product.nome,
-            descricao: product.descricao, 
-            imagem: imagemProduto, 
-            imagem_nome: imagemNome,
-            preco: product.preco, 
-            quantidade: product.quantidade, 
-            codigo: product.codigo, 
-            garantia: product.garantia, 
-            categoria: product.categoria, 
-            marca: product.marca, 
-            user_id: product.user_id,
-            id
+          nome: product.nome,
+          descricao: product.descricao,
+          imagem: img,
+          preco: product.preco,
+          quantidade: product.quantidade,
+          codigo: product.codigo,
+          garantia: product.garantia,
+          categoria: product.categoria,
+          marca: product.marca,
+          user_id: product.user_id,
+          id,
         }
       );
+
       if (response.data) {
         console.log(response.data);
         router.push("/Sellers/MeusProdutos");
@@ -113,12 +116,10 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
 
   const clearFileInput = () => {
     setImagemProduto(null);
-    setImagemNome("");
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
   };
-
 
   if (loading) {
     return <></>;
@@ -162,7 +163,9 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
 
               <div className="my-3  flex-col ">
                 <span className="block text-lg">Imagem do Produto:</span>
-                <p className="text-red-600 text-sm">Se não quiser trocar apenas deixe como está!</p>
+                <p className="text-red-600 text-sm">
+                  Se não quiser trocar apenas deixe como está!
+                </p>
                 <label className="block mb-2 font-medium cursor-pointer flex justify-center mt-2 bg-zinc-900 hover:bg-zinc-700 py-1 rounded-lg w-8/12 ms-20">
                   Selecione
                   <input
@@ -176,7 +179,6 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                 </label>
                 {imagemProduto && (
                   <label className={`w-10/12 border rounded-xl p-2 ms-10`}>
-                    {imagemNome}
                     <button
                       type="button"
                       onClick={clearFileInput}
@@ -190,8 +192,12 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                   </label>
                 )}
                 <div className="flex justify-start pt-3 h-20">
-                    <p className="text-sm mx-3">Imagem antiga =&gt;</p>
-                <img src={product.imagem} alt={product.imagem_nome} className="mb-0 pb-0" />
+                  <p className="text-sm mx-3">Imagem antiga =&gt;</p>
+                  <img
+                    src={product.imagem}
+                    alt={product.imagem_nome}
+                    className="mb-0 pb-0"
+                  />
                 </div>
               </div>
             </div>
@@ -202,7 +208,9 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                 <div className="w-6/12 mx-2">
                   <div className="mb-4">
                     <label className="block mb-2 font-medium">
-                      <span className="block text-lg">Quantidade em estoque:</span>
+                      <span className="block text-lg">
+                        Quantidade em estoque:
+                      </span>
                       <input
                         type="number"
                         step={"1"}
@@ -254,7 +262,109 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
               </div>
 
               <div className="w-full ms-4">
-                <div className="mb-4">
+              <div className="mb-4">
+                  <label className="block mb-2 font-medium">
+                    <span className="block text-lg">Categoria:</span>
+                  </label>
+
+                  <div className="flex ps-5">
+                    <div className="">
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Casa
+                        </label>
+                        <input
+                          type="radio"
+                          id="Casa"
+                          name="tipo"
+                          value="Casa"
+                          checked={product.categoria === "Casa"}
+                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Roupa
+                        </label>
+                        <input
+                          type="radio"
+                          id="Roupa"
+                          name="tipo"
+                          value="Roupa"
+                          checked={product.categoria === "Roupa"}
+                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Esporte
+                        </label>
+                        <input
+                          type="radio"
+                          id="Esporte"
+                          name="tipo"
+                          value="Esporte"
+                          checked={product.categoria === "Esporte"}
+                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          className="form-radio"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="ms-5">
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Games
+                        </label>
+                        <input
+                          type="radio"
+                          id="Games"
+                          name="tipo"
+                          value="Games"
+                          checked={product.categoria === "Games"}
+                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Maquiagem
+                        </label>
+                        <input
+                          type="radio"
+                          id="Maquiagem"
+                          name="tipo"
+                          value="Maquiagem"
+                          checked={product.categoria === "Maquiagem"}
+                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          className="form-radio"
+                        />
+                      </div>
+
+                      <div className="flex items-center">
+                        <label htmlFor="Casa" className="ml-2 me-2">
+                          Tecnologia
+                        </label>
+                        <input
+                          type="radio"
+                          id="Tecnologia"
+                          name="tipo"
+                          value="Tecnologia"
+                          checked={product.categoria === "Tecnologia"}
+                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          className="form-radio"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <div className="mb-4">
                   <label className="block mb-2 font-medium">
                     <span className="block text-lg">Categoria:</span>
                     <input
@@ -267,7 +377,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                       required
                     />
                   </label>
-                </div>
+                </div> */}
               </div>
 
               <div className="flex">
