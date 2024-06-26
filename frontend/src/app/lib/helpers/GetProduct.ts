@@ -1,18 +1,7 @@
 import axios from "axios";
 
 interface Product {
-  id: string;
-  nome: string;
-  preco: number;
-  imagem: string;
-  imagem_nome: string;
-  codigo: string;
-  descricao: string;
-  garantia: number;
-  categoria: string;
-  marca: string;
-  quantidade: number;
-  user_id: string;
+  products: [] | any | null;
 }
 
 const GetProduct = async (id: string | string[] | undefined): Promise<Product | null> => {

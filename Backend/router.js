@@ -5,6 +5,7 @@ const user = require('./controllers/userController');
 const venda = require('./controllers/vendaController');
 const product = require('./controllers/productsController');
 const dashboard = require('./controllers/dashboardController');
+const categoriaController = require('./controllers/categoriasController');
 
 // ========================================================================== \\
 
@@ -47,5 +48,9 @@ router.get('/Dashboard/Vendedor/PorDia/:id', dashboard.SomaVendasPorDiaS);
 router.get('/Dashboard/Vendedor/MtdPay/:id', dashboard.MetodoPayS);
 router.get('/Dashboard/Cliente/DoDia/:id', dashboard.SomaVendasDoDiaC);
 
+// ========================================================================== \\
+
+//rota categorias
+router.get('/Categoria/Get/:categoria',  categoriaController.getCategoria);
 
 module.exports = router;

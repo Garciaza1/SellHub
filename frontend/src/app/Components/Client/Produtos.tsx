@@ -7,7 +7,7 @@ const TodosProdutos = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 16;
+  const productsPerPage = 8;
 
   useEffect(() => {
     const pegaProdutos = async () => {
@@ -77,12 +77,9 @@ const TodosProdutos = () => {
   }
 
   return (
-    <div
-      className="container"
-      style={{ transition: "opacity 0.3s ease-in-out" }}
-    >
+    <div className="container">
       <div className="text-center mb-5 text-4xl font-semibold">Produtos</div>
-      <div className="bg-zinc-900 py-20 rounded-xl flex justify-center text-center">
+      <div className="bg-zinc-900 py-20 rounded-xl flex justify-center text-center h-min">
         <div className="grid gap-10 grid-cols-4 grid-rows-2 justify-center">
           {error ? (
             <>
