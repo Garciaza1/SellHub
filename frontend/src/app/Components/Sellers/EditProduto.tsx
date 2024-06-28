@@ -28,6 +28,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
     categoria: "",
     marca: "",
     user_id: "",
+    deleted_at: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +39,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/Product/Get/${id}`
+          `http://localhost:5000/Product/Get/Edit/${id}`
         );
         setProduct(response.data[0]);
       } catch (err) {
@@ -86,7 +87,6 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
     }
 
     const img = product.imagem;
-
     try {
       const response = await axios.put(
         "http://localhost:5000/Products/Put/Edit",
@@ -118,6 +118,41 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
     setImagemProduto(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+    }
+  };
+
+  const toggleHidden = () => {
+    const button = document.getElementById("button-excluir");
+    button.classList.toggle("hidden"); // Add or remove "hidden" class
+  };
+
+  console.log(product);
+
+  const handleExcluir = async () => {
+    try {
+      const response = axios.put(
+        `http://localhost:5000/Products/Delete/${id}`
+      );
+      if (response) {
+        console.log(response);
+        router.push("/Sellers/MeusProdutos");
+      }
+    } catch (err) {
+      setError("erro ao excluir produto: " + err);
+    }
+  };
+
+  const handleRestaurar = async () => {
+    try {
+      const response = axios.put(
+        `http://localhost:5000/Products/Restaurar/${id}`
+      );
+      if (response) {
+        console.log(response);
+        router.push("/Sellers/MeusProdutos");
+      }
+    } catch (err) {
+      setError("erro ao excluir produto: " + err);
     }
   };
 
@@ -262,7 +297,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
               </div>
 
               <div className="w-full ms-4">
-              <div className="mb-4">
+                <div className="mb-4">
                   <label className="block mb-2 font-medium">
                     <span className="block text-lg">Categoria:</span>
                   </label>
@@ -279,7 +314,12 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                           name="tipo"
                           value="Casa"
                           checked={product.categoria === "Casa"}
-                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              categoria: e.target.value,
+                            })
+                          }
                           className="form-radio"
                         />
                       </div>
@@ -294,7 +334,12 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                           name="tipo"
                           value="Roupa"
                           checked={product.categoria === "Roupa"}
-                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              categoria: e.target.value,
+                            })
+                          }
                           className="form-radio"
                         />
                       </div>
@@ -309,7 +354,12 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                           name="tipo"
                           value="Esporte"
                           checked={product.categoria === "Esporte"}
-                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              categoria: e.target.value,
+                            })
+                          }
                           className="form-radio"
                         />
                       </div>
@@ -326,7 +376,12 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                           name="tipo"
                           value="Games"
                           checked={product.categoria === "Games"}
-                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              categoria: e.target.value,
+                            })
+                          }
                           className="form-radio"
                         />
                       </div>
@@ -341,7 +396,12 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                           name="tipo"
                           value="Maquiagem"
                           checked={product.categoria === "Maquiagem"}
-                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              categoria: e.target.value,
+                            })
+                          }
                           className="form-radio"
                         />
                       </div>
@@ -356,28 +416,18 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                           name="tipo"
                           value="Tecnologia"
                           checked={product.categoria === "Tecnologia"}
-                          onChange={(e) => setProduct({ ...product, categoria: e.target.value })}
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              categoria: e.target.value,
+                            })
+                          }
                           className="form-radio"
                         />
                       </div>
                     </div>
                   </div>
                 </div>
-
-                {/* <div className="mb-4">
-                  <label className="block mb-2 font-medium">
-                    <span className="block text-lg">Categoria:</span>
-                    <input
-                      type="text"
-                      value={product.categoria}
-                      onChange={(e) =>
-                        setProduct({ ...product, categoria: e.target.value })
-                      }
-                      className="p-1 rounded-xl w-full mt-2 bg-zinc-700 text-center"
-                      required
-                    />
-                  </label>
-                </div> */}
               </div>
 
               <div className="flex">
@@ -414,9 +464,73 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                     </label>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
+          <p>{product.deleted_at}</p>
+          {/* dropdown do button de excluir */}
+          {product.deleted_at && (
+            <div className="flex justify-end me-40 items-center my-3">
+              <div className="ms-10">
+                <label className="me-2" htmlFor="excluir">
+                  Restaurar produto?
+                </label>
+                <input
+                  type="checkbox"
+                  name="excluir"
+                  id="excluir"
+                  onChange={toggleHidden}
+                />
+              </div>
+              <div
+                className="ms-2 hidden"
+                id="button-excluir"
+                role="menu"
+                >
+                <button
+                  className="text-white bg-zinc-900 hover:bg-zinc-700 rounded-lg p-1 px-2"
+                  type="button"
+                  onClick={async () => {
+                    await handleRestaurar();
+                  }}
+                >
+                  Restaurar
+                </button>
+              </div>
+            </div>
+          )}
+          {product.deleted_at === "" && (
+            <div className="flex justify-end me-40 items-center my-3">
+              <div className="ms-10">
+                <label className="me-2" htmlFor="excluir">
+                  Deletar produto?
+                </label>
+                <input
+                  type="checkbox"
+                  name="excluir"
+                  id="excluir"
+                  onChange={toggleHidden}
+                />
+              </div>
+              <div
+                className="ms-2 hidden"
+                role="menu"
+                id="button-excluir"
+              >
+                <button
+                  className="text-white bg-zinc-900 hover:bg-zinc-700 rounded-lg p-1 px-2"
+                  type="button"
+                  onClick={async () => {
+                    await handleExcluir();
+                  }}
+                >
+                  Deletar
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Botao */}
           <div className="flex justify-center">
             <button

@@ -22,10 +22,17 @@ router.get('/Users/GetAll', user.getAllUsers);
 // rotas produto:
 router.post('/Products/Post/Create', product.createProduct)
 router.put('/Products/Put/Edit', product.editProduct)
+router.put('/Products/Delete/:id', product.delete)
+router.put('/Products/Restaurar/:id', product.restaurar)
 
 router.get('/Products/GetAll', product.getAll)
 router.get('/Product/Get/:id', product.getProduct)
+router.get('/Product/Get/Edit/:id', product.getProductEdit)
 router.get('/User/Products/Get/:user_id', product.getUserProduct)
+
+// deleted products
+router.get('/Product/Get/Deleted/:id', product.getDeletedProduct)
+router.get('/User/Products/Get/Deleted/:user_id', product.getUserDeletedProduct)
 
 // ========================================================================== \\
 

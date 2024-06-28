@@ -79,56 +79,76 @@ const TodosProdutos = () => {
   return (
     <div className="container">
       <div className="text-center mb-5 text-4xl font-semibold">Produtos</div>
-      <div className="bg-zinc-900 py-20 rounded-xl flex justify-center text-center h-min">
-        <div className="grid gap-10 grid-cols-4 grid-rows-2 justify-center">
-          {error ? (
-            <>
-              <p>{error}</p>
-              <p>não tem produtos nesta pagina!</p>
-            </>
-          ) : (
-            currentProducts.map((product, index) => {
-              const semEstoque = product.quantidade <= 0;
-              return (
-                <div
-                  key={index}
-                  className="bg-zinc-950 p-4 rounded-lg mb-4 w-72"
-                >
-                  <div className="flex justify-center">
-                    <a
-                      href={`http://localhost:3000/Clients/Product/${product.id}`}
-                      className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-90 hover:mt-3 duration-300"
-                    >
-                      <img
-                        className="my-3 rounded-xl object-cover size-96"
-                        src={product.imagem}
-                        alt={product.nome}
-                        width={180}
-                      />
-                    </a>
-                  </div>
-                  <div className="text-center font-semibold text-2xl mt-2">
-                    {product.nome}
-                  </div>
-                  <div className="text-center font-semibold text-lg my-1">
-                    R$ {product.preco}
-                  </div>
-                  {semEstoque ? (
-                    <div className="text-center font-semibold text-lg my-1 text-red-600">
-                      Sem Estoque
+      {/* colocar botoes de paginação */}
+      <div className="bg-zinc-900 pb-20 pt-10 rounded-xl flex justify-center text-center h-min">
+        <div className="m-0 p-0">
+          <div className="flex justify-end mb-5">
+            <button
+              onClick={handlePrevPage}
+              className="bg-zinc-800 text-white px-4 py-2 mx-2 rounded-lg hover:cursor-pointer hover:bg-zinc-900 hover:animate-pulse"
+              disabled={currentPage === 1}
+            >
+              &lt;
+            </button>
+            <button
+              onClick={handleNextPage}
+              className="bg-zinc-800 text-white px-4 py-2 mx-2 rounded-lg hover:cursor-pointer hover:bg-zinc-900 hover:animate-pulse"
+              disabled={indexOfLastProduct >= products.length}
+            >
+              &gt;
+            </button>
+          </div>
+
+          <div className="grid gap-10 grid-cols-4 grid-rows-2 justify-center">
+            {error ? (
+              <>
+                <p>{error}</p>
+                <p>não tem produtos nesta pagina!</p>
+              </>
+            ) : (
+              currentProducts.map((product, index) => {
+                const semEstoque = product.quantidade <= 0;
+                return (
+                  <div
+                    key={index}
+                    className="bg-zinc-950 p-4 rounded-lg mb-4 w-72"
+                  >
+                    <div className="flex justify-center">
+                      <a
+                        href={`http://localhost:3000/Clients/Product/${product.id}`}
+                        className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-90 hover:mt-3 duration-300"
+                      >
+                        <img
+                          className="my-3 rounded-xl object-cover size-96"
+                          src={product.imagem}
+                          alt={product.nome}
+                          width={180}
+                        />
+                      </a>
                     </div>
-                  ) : (
-                    <div className="text-center font-semibold text-lg my-1 text-green-600">
-                      Em Estoque
+                    <div className="text-center font-semibold text-2xl mt-2">
+                      {product.nome}
                     </div>
-                  )}
-                </div>
-              );
-            })
-          )}
+                    <div className="text-center font-semibold text-lg my-1">
+                      R$ {product.preco}
+                    </div>
+                    {semEstoque ? (
+                      <div className="text-center font-semibold text-lg my-1 text-red-600">
+                        Sem Estoque
+                      </div>
+                    ) : (
+                      <div className="text-center font-semibold text-lg my-1 text-green-600">
+                        Em Estoque
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4 h-10">
         <button
           onClick={handlePrevPage}
           className="bg-zinc-800 text-white px-4 py-2 mx-2 rounded-lg hover:cursor-pointer hover:bg-zinc-900 hover:animate-pulse"

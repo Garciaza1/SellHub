@@ -70,7 +70,7 @@ const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {
         categoryAxis: true,
         title: {
           display: true,
-          text: "Data",
+          text: "Vendas",
         },
       },
       y: {

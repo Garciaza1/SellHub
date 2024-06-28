@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import fetchUserSession from "@/app/lib/helpers/SessionData";
 import Link from "next/link";
+import Menu from "./menu";
 
 interface HeaderProps {
   metadata: {
@@ -101,7 +102,7 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
       <div className="container flex items-center justify-between">
         {/* links do vendedor */}
         <div className="bg-zinc-800 container flex items-center justify-between py-2 mt-1">
-          <div className="flex items-center ms-4 ">
+          <div className="flex items-center ms-5">
             <a
               href="/"
               className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
@@ -110,7 +111,7 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
               Home
             </a>
           </div>
-          <div className="flex items-center ms-5">
+          <div className="flex items-center">
             <a
               href="http://localhost:3000/Sellers/NovoProduto"
               className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
@@ -128,7 +129,8 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
               Meus Produtos
             </a>
           </div>
-          <div className="flex items-center me-5">
+
+          <div className="flex items-center">
             <a
               href="http://localhost:3000/Sellers/Vendas"
               className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
@@ -141,7 +143,8 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
               Vendas
             </a>
           </div>
-          <div className="flex items-center me-5">
+
+          <div className="flex items-center">
             <a
               href="http://localhost:3000/Sellers/Dashboard"
               className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
@@ -155,14 +158,8 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
             </a>
           </div>
 
-          <div className="flex items-center me-5">
-            <Link
-              href="/Logout"
-              className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
-            >
-              <FontAwesomeIcon icon={faDoorOpen} className="mx-2 h-5" />
-              Log-out
-            </Link>
+          <div className="flex items-center me-6">
+            <Menu />
           </div>
         </div>
       </div>
@@ -174,10 +171,7 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
             href={`http://localhost:3000/Clients/Categoria/Casa`}
             className="hover:animate-pulse cursor-pointer hover:text-red-600 transition ease-in-out duration-1000 flex items-center"
           >
-            <FontAwesomeIcon
-              icon={faCouch}
-              className="mx-2 h-5 text-red-600"
-            />
+            <FontAwesomeIcon icon={faCouch} className="mx-2 h-5 text-red-600" />
             Casa
           </a>
         </div>
@@ -261,81 +255,76 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
         </a>
       </div>
       <div className="flex items-center ms-5">
-          <a
-            href={`http://localhost:3000/Clients/Categoria/Casa`}
-            className="hover:animate-pulse cursor-pointer hover:text-red-600 transition ease-in-out duration-1000 flex items-center"
-          >
-            <FontAwesomeIcon
-              icon={faCouch}
-              className="mx-2 h-5 text-red-600"
-            />
-            Casa
-          </a>
-        </div>
-        <div className="flex items-center">
-          <a
-            href={`http://localhost:3000/Clients/Categoria/Roupa`}
-            className="hover:animate-pulse cursor-pointer hover:text-indigo-500 transition ease-in-out duration-1000 flex items-center"
-          >
-            <FontAwesomeIcon
-              icon={faGlasses}
-              className="mx-2 h-5 text-indigo-500"
-            />
-            Roupa
-          </a>
-        </div>
-        <div className="flex items-center">
-          <a
-            href={`http://localhost:3000/Clients/Categoria/Esporte`}
-            className="hover:animate-pulse cursor-pointer hover:text-orange-500 transition ease-in-out duration-1000 flex items-center"
-          >
-            <FontAwesomeIcon
-              icon={faPersonHiking}
-              className="mx-2 h-5 text-orange-500"
-            />
-            Esporte
-          </a>
-        </div>
+        <a
+          href={`http://localhost:3000/Clients/Categoria/Casa`}
+          className="hover:animate-pulse cursor-pointer hover:text-red-600 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon icon={faCouch} className="mx-2 h-5 text-red-600" />
+          Casa
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href={`http://localhost:3000/Clients/Categoria/Roupa`}
+          className="hover:animate-pulse cursor-pointer hover:text-indigo-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon
+            icon={faGlasses}
+            className="mx-2 h-5 text-indigo-500"
+          />
+          Roupa
+        </a>
+      </div>
+      <div className="flex items-center">
+        <a
+          href={`http://localhost:3000/Clients/Categoria/Esporte`}
+          className="hover:animate-pulse cursor-pointer hover:text-orange-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon
+            icon={faPersonHiking}
+            className="mx-2 h-5 text-orange-500"
+          />
+          Esporte
+        </a>
+      </div>
 
-        <div className="flex items-center me-5">
-          <a
-            href={`http://localhost:3000/Clients/Categoria/Games`}
-            className="hover:animate-pulse cursor-pointer hover:text-red-400 transition ease-in-out duration-1000 flex items-center"
-          >
-            <FontAwesomeIcon
-              icon={faHeadset}
-              className="mx-2 h-5 text-red-400"
-            />
-            Games
-          </a>
-        </div>
+      <div className="flex items-center me-5">
+        <a
+          href={`http://localhost:3000/Clients/Categoria/Games`}
+          className="hover:animate-pulse cursor-pointer hover:text-red-400 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon icon={faHeadset} className="mx-2 h-5 text-red-400" />
+          Games
+        </a>
+      </div>
 
-        <div className="flex items-center me-5">
-          <a
-            href={`http://localhost:3000/Clients/Categoria/Maquiagem`}
-            className="hover:animate-pulse cursor-pointer hover:text-fuchsia-600 transition ease-in-out duration-1000 flex items-center"
-          >
-            <FontAwesomeIcon
-              icon={faHighlighter}
-              className="mx-2 h-5 text-fuchsia-600"
-            />
-            Maquiagem
-          </a>
-        </div>
+      <div className="flex items-center me-5">
+        <a
+          href={`http://localhost:3000/Clients/Categoria/Maquiagem`}
+          className="hover:animate-pulse cursor-pointer hover:text-fuchsia-600 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon
+            icon={faHighlighter}
+            className="mx-2 h-5 text-fuchsia-600"
+          />
+          Maquiagem
+        </a>
+      </div>
 
-        <div className="flex items-center me-5">
-          <a
-            href={`http://localhost:3000/Clients/Categoria/Tecnologia`}
-            className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
-          >
-            <FontAwesomeIcon
-              icon={faMicrochip}
-              className="mx-2 h-5 text-yellow-500"
-            />
-            Tecnologia
-          </a>
-        </div>
+      <div className="flex items-center me-5">
+        <a
+          href={`http://localhost:3000/Clients/Categoria/Tecnologia`}
+          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+        >
+          <FontAwesomeIcon
+            icon={faMicrochip}
+            className="mx-2 h-5 text-yellow-500"
+          />
+          Tecnologia
+        </a>
+      </div>
       <div className="flex items-center me-4">
+        {/* trocar pra icone de perfil com logout e usersettins fazer outro menu. */}
         <Link
           href="/Logout"
           className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
