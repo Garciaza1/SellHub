@@ -22,7 +22,7 @@ const MyMenu = () => {
       >
         <div className="py-1 flex justify-center">
           <a
-            href="/#"
+            href="http://localhost:3000/Clients/Profile"
             className="text-gray-900 hover:animate-pulse cursor-pointer hover:text-gray-600 transition ease-in-out duration-1000 flex items-center"
           >
             <FontAwesomeIcon icon={faUser} className="me-2 h-5" />

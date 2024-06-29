@@ -1,7 +1,7 @@
-import { metadata } from "../../../layout";
-import HeaderMenu from "../../../Components/head/header";
-import FooterMenu from "../../../Components/foot/footer";
-import Categoria from "@/app/Components/Client/Categorias";
+import { metadata } from "../../layout";
+import HeaderMenu from "../../Components/head/header";
+import FooterMenu from "../../Components/foot/footer";
+import Profile from "../../Components/Client/Profile";
 import fetchUserSession from "@/app/lib/helpers/SessionData";
 import { redirect } from "next/navigation";
 
@@ -10,16 +10,17 @@ const safeMetadata = {
   description: metadata.description || "",
 };
 
-export default async function Produto({ params }: { params: { categoria: string } }) {
-  
-  const { categoria } = params;
-  console.log("params: " + categoria);
-
+export default async function ComprasClient() {
+  const session = await fetchUserSession();
+  if (!session) {
+    return redirect("http://localhost:3000/Login");
+  }
+  console.log(session)
   return (
     <>
       <HeaderMenu metadata={safeMetadata} />
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <Categoria categoria={categoria} />
+        <Profile session={session} />
       </main>
       <FooterMenu />
     </>

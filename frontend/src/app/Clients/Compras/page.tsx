@@ -10,17 +10,15 @@ const safeMetadata = {
 };
 
 export default async function ComprasClient() {
-  const session = await fetchUserSession()
+  const session = await fetchUserSession();
   if (!session) {
     return redirect("http://localhost:3000/Login");
   }
-return(
+  return (
     <>
       <HeaderMenu metadata={safeMetadata} />
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        </main>
+      <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
       <FooterMenu />
     </>
-)
-
+  );
 }

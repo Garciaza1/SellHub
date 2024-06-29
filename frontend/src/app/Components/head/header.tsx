@@ -349,50 +349,71 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
       </div>
       <div className="flex items-center">
         <a
-          href="#"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          href={`http://localhost:3000/Clients/Categoria/Casa`}
+          className="hover:animate-pulse cursor-pointer hover:text-red-600 transition ease-in-out duration-1000 flex items-center"
         >
-          categoria-1
+          <FontAwesomeIcon icon={faCouch} className="mx-2 h-5 text-red-600" />
+          Casa
         </a>
       </div>
       <div className="flex items-center">
         <a
-          href="#"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          href={`http://localhost:3000/Clients/Categoria/Roupa`}
+          className="hover:animate-pulse cursor-pointer hover:text-indigo-500 transition ease-in-out duration-1000 flex items-center"
         >
-          categoria-2
+          <FontAwesomeIcon
+            icon={faGlasses}
+            className="mx-2 h-5 text-indigo-500"
+          />
+          Roupa
         </a>
       </div>
       <div className="flex items-center">
         <a
-          href="#"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          href={`http://localhost:3000/Clients/Categoria/Esporte`}
+          className="hover:animate-pulse cursor-pointer hover:text-orange-500 transition ease-in-out duration-1000 flex items-center"
         >
-          categoria-3
+          <FontAwesomeIcon
+            icon={faPersonHiking}
+            className="mx-2 h-5 text-orange-500"
+          />
+          Esporte
         </a>
       </div>
-      <div className="flex items-center">
+
+      <div className="flex items-center me-5">
         <a
-          href="#"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          href={`http://localhost:3000/Clients/Categoria/Games`}
+          className="hover:animate-pulse cursor-pointer hover:text-red-400 transition ease-in-out duration-1000 flex items-center"
         >
-          categoria-4
+          <FontAwesomeIcon icon={faHeadset} className="mx-2 h-5 text-red-400" />
+          Games
         </a>
       </div>
-      <div className="flex items-center">
+
+      <div className="flex items-center me-5">
         <a
-          href="#"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          href={`http://localhost:3000/Clients/Categoria/Maquiagem`}
+          className="hover:animate-pulse cursor-pointer hover:text-fuchsia-600 transition ease-in-out duration-1000 flex items-center"
         >
-          categoria-5
+          <FontAwesomeIcon
+            icon={faHighlighter}
+            className="mx-2 h-5 text-fuchsia-600"
+          />
+          Maquiagem
         </a>
       </div>
+
       <div className="flex items-center">
         <a
-          href="#"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
+          href={`http://localhost:3000/Clients/Categoria/Tecnologia`}
+          className="hover:animate-pulse cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
         >
-          categoria-6
+          <FontAwesomeIcon
+            icon={faMicrochip}
+            className="mx-2 h-5 text-yellow-500"
+          />
+          Tecnologia
         </a>
       </div>
       <div className="flex items-center me-5">

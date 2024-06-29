@@ -8,6 +8,7 @@ interface UserSession {
   tipo: string;
   email: string;
   cpf: string;
+  tel: string;
 }
 
 // Variável para armazenar a sessão do usuário
@@ -35,7 +36,8 @@ const fetchUserSession = async (): Promise<UserSession | null> => {
         nome: response.data.nome,
         tipo: response.data.tipo,
         email: response.data.email,
-        cpf: response.data.cpf
+        cpf: response.data.cpf,
+        tel: response.data.tel
       };
       
       return userSession;

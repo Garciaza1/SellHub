@@ -10,12 +10,11 @@ interface produtoProps {
 const Produto: React.FC<produtoProps> = ({ vendedor }) => {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
-
   const [quantidade, setQuantidade] = useState(1);
 
   const params = useParams();
   const id = params.id;
-console.log(id)
+  // console.log(id);
 
   useEffect(() => {
     const pegaProduto = async () => {
@@ -61,12 +60,12 @@ console.log(id)
             >
               <img
                 className="my-3 rounded-lg size-min object-cover "
-                style={{width:"970px", height:"auto"}}
+                style={{ width: "970px", height: "auto" }}
                 src={product.imagem}
                 alt={product.imagem_nome}
               />
               <div className="p-6 rounded-lg mx-2">
-                <div className="text-center font-semibold text-2xl my-2" >
+                <div className="text-center font-semibold text-2xl my-2">
                   {product.nome}
                 </div>
                 <hr />
@@ -81,7 +80,9 @@ console.log(id)
                 </div>
                 <div className="text-start font-semibold text-lg my-4">
                   Garantia
-                  {product.garantia === 0 ? ": Nenhuma" : ` de ${product.garantia} Meses`}
+                  {product.garantia === 0
+                    ? ": Nenhuma"
+                    : ` de ${product.garantia} Meses`}
                 </div>
                 <div className="flex content-between my-3">
                   <div className="font-semibold text-lg me-1">
@@ -148,5 +149,5 @@ console.log(id)
       )}
     </div>
   );
-}
+};
 export default Produto;
