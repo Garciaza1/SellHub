@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale/pt-BR";
+// import { format } from "date-fns";
+// import { ptBR } from "date-fns/locale/pt-BR";
 
 import dayjs from "dayjs";
 import RelativeTime from "dayjs/plugin/relativeTime";
@@ -37,8 +37,6 @@ const Profile = (session) => {
   //   const criadoEm = new Date(user.created_at);
   //   const atualizadoEm = new Date(user.updated_at);
 
-  console.log(session);
-  console.log(user);
   return (
     <div className="container mx-auto">
       <h1 className="text-4xl text-center font-bold mb-16">Perfil</h1>
@@ -114,7 +112,7 @@ const Profile = (session) => {
       </section>
       <section className="bg-zinc-700 w-full h-14 mt-5 rounded-b-xl flex items-center justify-end">
         <div className="text-end me-2">
-          <a className="rounded-xl p-2 hover:bg-zinc-600" href="http://localhost:3000/Clients/Profile/Edit">
+          <a className="rounded-xl p-2 hover:bg-zinc-600" href={`http://localhost:3000/Clients/Profile/Edit/${session.session.id}`}>
             <FontAwesomeIcon icon={faUserEdit} className="me-2" />
             Editar Campos
           </a>

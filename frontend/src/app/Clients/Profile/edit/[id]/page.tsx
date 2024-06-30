@@ -1,7 +1,7 @@
-import { metadata } from "../../layout";
-import HeaderMenu from "../../Components/head/header";
-import FooterMenu from "../../Components/foot/footer";
-import Profile from "../../Components/Client/Profile";
+import { metadata } from "../../../../layout";
+import HeaderMenu from "../../../../Components/head/header";
+import FooterMenu from "../../../../Components/foot/footer";
+import EditUser from "../../../../Components/Client/UserEdit";
 import fetchUserSession from "@/app/lib/helpers/SessionData";
 import { redirect } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default async function ComprasClient() {
     <>
       <HeaderMenu metadata={safeMetadata} />
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <Profile session={session} />
+        <EditUser id={session.id} />
       </main>
       <FooterMenu />
     </>

@@ -12,7 +12,7 @@ export default function Cadastro() {
   const [endereco, setEndereco] = useState('');
   const [cpf, setCpf] = useState('');
   const [cep, setCep] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<any>('');
   const router = useRouter()
 
   const handleSubmit = async (e) => {
@@ -53,7 +53,7 @@ export default function Cadastro() {
 
     } catch (error) {
       console.error('Erro ao fazer login:', error);
-      setError(error.message);
+      setError(error);
     }
   };
 
@@ -155,18 +155,6 @@ export default function Cadastro() {
                 className="form-radio"
               />
               <label htmlFor="Cliente" className="ml-2">Cliente</label>
-            </div>
-            <div className="flex items-center mt-2">
-              <input
-                type="radio"
-                id="Vendedor"
-                name="tipo"
-                value="Vendedor"
-                checked={tipo === 'Vendedor'}
-                onChange={(e) => setTipo(e.target.value)}
-                className="form-radio"
-              />
-              <label htmlFor="Vendedor" className="ml-2">Vendedor</label>
             </div>
             <div className="flex items-center mt-2">
               <input

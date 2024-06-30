@@ -29,6 +29,7 @@ const VendasEdit: React.FC<VendaEditProps> = ({ id }) => {
     user_id: "",
     vendedor_id: "",
   });
+  
   const [quantidadeNova, setQuantidadeNova] = useState<any>(0);
   const [error, setError] = useState<string | null>(null);
 

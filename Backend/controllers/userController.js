@@ -37,6 +37,23 @@ const userController = {
 
     },
 
+    EditUser: (req, res) => {
+
+        const { nome, email, senha, tipo, tel, endereco, cpf, cep, id } = req.body;
+        const query = 'UPDATE usuario SET nome = ?, email = ?, senha = ?, tipo = ?, tel = ?, endereco = ?, cpf = ?, cep = ?, updated_at = NOW() WHERE id = ?';
+
+        db.query(query, [nome, email, senha, tipo, tel, endereco, cpf, cep, id], (err, results) => {
+            if (err) {
+                res.status(500).json({ error: 'Failed to update user. ' + err });
+                return;
+            }
+
+            console.log('Usuario atualizado: ' + { id, nome, email, senha, tipo, tel, endereco, cpf, cep });
+            res.status(201).json({message: 'Usuario atualizado com sucesso', tipo: tipo});
+        });
+
+    },
+
     loginUser: (req, res) => {
 
         // lembrar de dar console log pra ver como e oque esta vindo do body

@@ -12,6 +12,7 @@ const categoriaController = require('./controllers/categoriasController');
 // rotas user:
 router.post('/Users/Post/Cadastro', user.createUser);
 router.post('/Users/Post/Login', user.loginUser);
+router.put('/Users/Put/EditUser', user.EditUser);
 
 router.get('/Users/FetchUser/:email', user.fetchUser);
 router.get('/Users/GetUser/:id', user.getUser);
