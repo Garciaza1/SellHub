@@ -56,6 +56,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
     FetchVendasPorDia();
   }, [user_id]);
 
+// COLOCAR AS 3 CAIXAS DE TOTAIS DE VALOR, QUANTIDADE E N°-DE-COMPRAS  "SELECT SUM(total), SUM(quantidade), COUNT(id) from vendas" WHERE vendedor_id = id da session
+
   return (
     <div className="container bg-gray-500 rounded-xl">
       {error}
@@ -80,9 +82,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
 
       <hr className="mx-20" />
 
-      <section className="flex justify-start text-center bg-red-100 m-20 text-black rounded-3xl ">
-        <div className="w-5/12 p-5">
-          <VendasMap salesData={vendasDoDia} />
+      <section className="text-start bg-red-100 m-20 text-black rounded-3xl ">
+        <div className="flex justify-start ">
+          <div className="w-5/12 p-5">
+            <VendasMap salesData={vendasDoDia} />
+          </div>
+        </div>
+        <div className="flex justify-start ms-2 pb-2 items-center">
+          <p className="text-red-600 text-sm ps-5">
+            Nem todas as vendas tem cep valido | Algumas podem não aparecer
+          </p>
         </div>
       </section>
 

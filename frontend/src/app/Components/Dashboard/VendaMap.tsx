@@ -25,7 +25,7 @@ interface Coordenadas {
 
 const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
   const [markers, setMarkers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMarkers = async () => {
@@ -38,12 +38,14 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
             total_vendas: sale.total_vendas,
             quantidade: sale.quantidade,
             sts_venda: sale.sts_venda,
-            venda_data: sale.venda_data,
+            venda_data: new Date(sale.venda_data),
           });
+        } else {
+          console.error(`Coordenadas não encontradas para o CEP: ${sale.cep}`);
         }
       }
       setMarkers(markersArray);
-      setLoading(false); // Marca o carregamento como completo após buscar os marcadores
+      setLoading(false);
     };
 
     fetchMarkers();
@@ -54,8 +56,6 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
       <div className="p-3">
         <h1 className="mx-4 text-xl font-bold">Carregando Mapa...</h1>
         <div className="map-container blur">
-          {/* Exibir um placeholder enquanto carrega */}
-          {/* print do mapa na pasta prints */}
           <div className="map-placeholder"></div>
         </div>
       </div>
@@ -67,7 +67,6 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
       <div className="p-3" style={{ width: "250%" }}>
         <h1 className="mx-4 text-xl font-bold">Carregando Mapa...</h1>
         <div className="map-container blur">
-          {/* Exibir um placeholder enquanto carrega */}
           <Image
             className="rounded-xl p-5"
             height={400}
@@ -77,13 +76,6 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
             placeholder="blur"
             style={{ width: "100%" }}
           />
-
-          {/* <img
-            className=""
-            src=""
-            alt=""
-            style={{ height: "600px", width: "100%" }}
-          /> */}
           <div className="map-placeholder"></div>
         </div>
       </div>
@@ -121,8 +113,8 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
           >
             <Popup>
               <strong>Quantidade:</strong> {marker.quantidade} <br />
-              <strong>Ultima Venda:</strong> {marker.venda_data} <br />
-              <strong>Total de Vendas:</strong> {marker.total_vendas} <br />
+              <strong>Ultima Venda:</strong> {marker.venda_data.toLocaleDateString()} <br />
+              <strong>Total em Vendas:</strong> {marker.total_vendas} <br />
             </Popup>
           </Marker>
         ))}

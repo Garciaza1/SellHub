@@ -31,7 +31,7 @@ const MeusProdutosDeletados: React.FC<MeusProdutosProps> = ({ user_id }) => {
     return (
       <div className="container">
         <div className="text-center mb-5 text-4xl font-semibold">
-          Meus produtos
+          Meus produtos Deletados
         </div>
         <div className="bg-zinc-900 p-8 rounded-lg flex justify-center text-center">
           {[...Array(4).keys()].map((index) => (
@@ -61,13 +61,13 @@ const MeusProdutosDeletados: React.FC<MeusProdutosProps> = ({ user_id }) => {
   return (
     <div className="container bg-grid-slate-100 ">
       <div className="text-center mb-5 text-4xl font-semibold">
-        Meus produtos
+        Meus produtos Deletados
       </div>
       <div className="bg-zinc-900 p-8 rounded-lg grid gap-4 grid-cols-4 grid-rows-2 justify-center text-center">
         {error ? (
           <>
-            <p>{error}</p>
-            <p>Você não tem Produtos Cadastrados</p>
+            {/* <p>{error}</p> */}
+            <p>Você não tem Produtos Deletados</p>
           </>
         ) : (
           // para cada produto uma div dessa

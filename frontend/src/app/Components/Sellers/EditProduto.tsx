@@ -28,7 +28,6 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
     categoria: "",
     marca: "",
     user_id: "",
-    deleted_at: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -149,7 +148,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
       );
       if (response) {
         console.log(response);
-        router.push("/Sellers/MeusProdutos");
+        router.push("/Sellers/MeusProdutos/Deletados");
       }
     } catch (err) {
       setError("erro ao excluir produto: " + err);

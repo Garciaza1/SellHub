@@ -166,7 +166,7 @@ export default function Cadastro() {
                 onChange={(e) => setTipo(e.target.value)}
                 className="form-radio"
               />
-              <label htmlFor="Ambos" className="ml-2">Ambos</label>
+              <label htmlFor="Ambos" className="ml-2">Vendedor</label>
             </div>
           </div>
         </div>

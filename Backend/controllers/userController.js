@@ -48,7 +48,7 @@ const userController = {
                 return;
             }
 
-            console.log('Usuario atualizado: ' + { id, nome, email, senha, tipo, tel, endereco, cpf, cep });
+            console.log({message: 'Usuario atualizado', id:id, nome:nome, email:email, tipo:tipo, resultado:results});
             res.status(201).json({message: 'Usuario atualizado com sucesso', tipo: tipo});
         });
 

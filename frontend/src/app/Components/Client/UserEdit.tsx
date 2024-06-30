@@ -274,9 +274,10 @@ const EditUsuario: React.FC<EditUsuarioProps> = ({ id }) => {
                 className="form-radio"
               />
               <label htmlFor="Ambos" className="ml-2">
-                Ambos
+                Vendedor
               </label>
             </div>
+            <p className="text-red-600 text-sm">Caso queira trocar o tipo do perfil todos os dados continuarão guardados!</p>
           </div>
         </div>
         <div className="flex justify-between mt-6">

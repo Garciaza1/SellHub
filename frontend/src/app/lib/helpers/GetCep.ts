@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 interface Coordenadas {
   lat: number;
@@ -7,24 +7,27 @@ interface Coordenadas {
 
 const cepToCoords = async (cep: string): Promise<Coordenadas | null> => {
   try {
-    // Construa a URL da requisição para o serviço de geocodificação do OpenStreetMap
-    const url = `https://nominatim.openstreetmap.org/search?postalcode=${cep}&format=json&limit=1`;
+    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+    if (response.data.erro) {
+      console.error("CEP inválido:", cep);
+      return null;
+    }
 
-    // Faça a requisição HTTP usando axios
-    const response = await axios.get(url);
-
-    // Verifique se houve uma resposta e se há dados válidos
-    if (response.data && response.data.length > 0) {
-      const firstResult = response.data[0];
-      const lat = parseFloat(firstResult.lat);
-      const lon = parseFloat(firstResult.lon);
-      return { lat, lon };
+    const address = `${response.data.logradouro}, ${response.data.localidade}, ${response.data.uf}`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+    console.log(url)
+    const geoResponse = await axios.get(url);
+    if (geoResponse.data.length > 0) {
+      return {
+        lat: parseFloat(geoResponse.data[0].lat),
+        lon: parseFloat(geoResponse.data[0].lon),
+      };
     } else {
-      console.error('Nenhuma coordenada encontrada para o CEP fornecido.');
+      console.error("Coordenadas não encontradas para o endereço:", address);
       return null;
     }
   } catch (error) {
-    console.error('Erro ao converter CEP para coordenadas:', error);
+    console.error("Erro ao converter CEP para coordenadas:", error);
     return null;
   }
 };
