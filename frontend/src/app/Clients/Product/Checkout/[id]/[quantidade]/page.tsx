@@ -18,7 +18,7 @@ export default async function checkout({ params }: { params: { id: string } }) {
   if (!session) {
     return redirect("http://localhost:3000/Login");
   }
-
+  // console.log(session)
   const {id} = params;
 
   //chama o produto e passa o id do vendedor
@@ -31,7 +31,7 @@ export default async function checkout({ params }: { params: { id: string } }) {
     <>
       <HeaderMenu metadata={safeMetadata} />
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <CompraForm product={product} vendedor={vendedor}></CompraForm>
+        <CompraForm product={product} vendedor={vendedor} user_id={session.id}></CompraForm>
       </main>
       <FooterMenu />
     </>

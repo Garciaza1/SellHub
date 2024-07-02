@@ -3,19 +3,16 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 // import GetUser from "@/app/lib/helpers/UserData";
-// import fetchUserSession from "@/app/lib/helpers/SessionData";
+import fetchUserSession from "@/app/lib/helpers/SessionData";
 
 interface checkoutProps {
   product: any;
   vendedor: any;
+  user_id: any;
 }
 
-const CompraForm: React.FC<checkoutProps> = ({ product, vendedor }) => {
-  const router = useRouter();
-  const params = useParams();
-  const quantidade = params.quantidade;
-  const valor = (product.preco * quantidade)
-
+const CompraForm: React.FC<checkoutProps> = ({ product, vendedor, user_id }) => {
+  const [id_user, setIdUser] = useState<any>("");
   const [cpf, setCpf] = useState("");
   const [endereco, setEndereco] = useState("");
   const [numResidencia, setNumResidencia] = useState("");
@@ -23,11 +20,31 @@ const CompraForm: React.FC<checkoutProps> = ({ product, vendedor }) => {
   const [metodoPagamento, setMetodoPagamento] = useState("");
   const [error, setError] = useState<string | null>(null);
 
- //ID DO VENDEDOR PRA PUXAR OS DADOS DELE
+  const router = useRouter();
+  const params = useParams();
+  const quantidade = params.quantidade;
+  const valor = product.preco * quantidade;
+
+  const fetchUser = async () => {
+    try {
+      const user = await fetchUserSession();
+      const id = user?.id;
+      setIdUser(id);
+      console.log(user)
+    } catch (error) {
+      console.error("Erro ao buscar sessão do usuário:", error);
+    }
+  };
+
+  // useEffect(() => {
+  // }, []);
+
+  //ID DO VENDEDOR PRA PUXAR OS DADOS DELE
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      await fetchUser();
       const data = {
         endereco,
         numResidencia,
@@ -36,11 +53,11 @@ const CompraForm: React.FC<checkoutProps> = ({ product, vendedor }) => {
         quantidade,
         metodoPagamento,
         cpf,
-        user_id: product.user_id,
+        user_id: user_id,
         id_produto: product.id,
         vendedor_id: vendedor.id,
       };
-      console.log(data)
+      console.log(data);
       const response = await axios.post(
         "http://localhost:5000/Vendas/Post/Compra",
         data,

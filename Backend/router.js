@@ -43,6 +43,7 @@ router.put('/Vendas/Put/Edit', venda.EditVenda);
 router.put('/Vendas/Put/Restaurar', venda.restaurarVenda);
 router.put('/Vendas/Put/Cancelar', venda.CancelarVenda);
 
+router.get('/Vendas/Get/Compras/:user_id', venda.getComprasClient);
 router.get('/Vendas/GetAll', venda.getAll);
 router.get('/Vendas/Get/:id', venda.getVenda);
 router.get('/Vendas/Client/Get/:id', venda.getClientVenda);
@@ -54,6 +55,7 @@ router.get('/Vendas/User/Get/:user_id', venda.getUserVendas);
 router.get('/Dashboard/Vendedor/DoDia/:id', dashboard.SomaVendasDoDiaS);
 router.get('/Dashboard/Vendedor/PorDia/:id', dashboard.SomaVendasPorDiaS);
 router.get('/Dashboard/Vendedor/MtdPay/:id', dashboard.MetodoPayS);
+router.get('/Dashboard/Vendedor/Somas/:id', dashboard.SomasVendedor);
 router.get('/Dashboard/Cliente/DoDia/:id', dashboard.SomaVendasDoDiaC);
 
 // ========================================================================== \\

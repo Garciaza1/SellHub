@@ -64,6 +64,10 @@ const Profile = (session) => {
               <span className="font-semibold"> Tel: </span>
               {session.session.tel}
             </div>
+            <div className="text-center">
+              <span className="font-semibold"> Tel: </span>
+              {session.session.id}
+            </div>
             {/* <div className="text-start ms-2">
               <a className="rounded-xl p-2 hover:bg-zinc-600" href="http://localhost:3000/Clients/Profile/Edit">
                 <FontAwesomeIcon icon={faUserEdit} className="me-2" />

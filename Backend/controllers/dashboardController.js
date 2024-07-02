@@ -54,14 +54,14 @@ const dashboardController = {
         });
     },
 
-    SumVendasPorVenda: (req, res) => {
+    SomasVendedor: (req, res) => {
         //vendedor id
         const { id } = req.params;
 
         if (!id) {
             return res.status(400).json({ error: "Erro ao receber ID " })
         }
-        const query = "SELECT mtd_pay, COUNT(id) AS numero_vendas FROM vendas WHERE vendedor_id = ? GROUP BY mtd_pay";
+        const query = "SELECT SUM(total) as total, SUM(quantidade) as quantidade, COUNT(id) as vendas FROM vendas WHERE vendedor_id = ?";
         db.query(query, [id], (err, data) => {
             if (err) {
                 res.status(500).json({ error: "Erro ao puxar dados -> " + err });

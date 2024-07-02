@@ -3,7 +3,7 @@ const db = require('../config/db');
 const vendaController = {
 
     createVenda: (req, res) => {
-        const { endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id  } = req.body;
+        const { endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id } = req.body;
 
         if (!endereco || !numResidencia || !cep || !valor || !quantidade || !metodoPagamento || !cpf || !user_id || !id_produto || !vendedor_id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
@@ -56,10 +56,10 @@ const vendaController = {
 
 
     EditVenda: (req, res) => {
-        const { endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id, diferençaQuantidade, id} = req.body;
+        const { endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id, diferençaQuantidade, id } = req.body;
         console.log(endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id, diferençaQuantidade, id)
         console.log(req.body)
-        
+
         if (!endereco || !numResidencia || !cep || !valor || !quantidade || !metodoPagamento || !cpf || !user_id || !id_produto || !vendedor_id || !id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
@@ -100,10 +100,10 @@ const vendaController = {
                                 res.status(500).json({ error: 'Failed to commit transaction: ' + err });
                             });
                         }
-                        
-                        console.log("Processo de edição da venda: " + id +  " realizado com sucesso!");
+
+                        console.log("Processo de edição da venda: " + id + " realizado com sucesso!");
                         // Envia a resposta ao cliente
-                        res.status(201).json({ message: 'Venda cadastrada com sucesso e produto atualizado'});
+                        res.status(201).json({ message: 'Venda cadastrada com sucesso e produto atualizado' });
                     });
                 });
             });
@@ -174,6 +174,29 @@ const vendaController = {
     // ========================================================================== \\
 
 
+    getComprasClient: (req, res) => {
+
+        const { user_id } = req.params;
+
+        if (!user_id) {
+            return res.status(400).json({ error: 'User ID is required' });
+        }
+        const query = 'SELECT  vendas.*, produto.nome, produto.garantia, produto.imagem FROM vendas JOIN produto ON vendas.product_id = produto.id WHERE vendas.user_id = ?';
+
+        db.query(query, [user_id], (err, results) => {
+            if (err) {
+                res.status(500).json({ error: err });
+            } else if (results.length === 0) {
+                res.status(404).json({ message: 'No sells found for this user' });
+            } else {
+                res.status(200).json(results);
+            }
+        });
+    },
+
+    // ========================================================================== \\
+
+
     getUserVendas: (req, res) => {
 
         const { user_id } = req.params;
@@ -201,45 +224,45 @@ const vendaController = {
         const { id, product_id, quantidade } = req.body;
         const confirmada = "Confirmada";
         console.log(id, product_id, quantidade)
-    
+
         if (!id || !product_id || !quantidade) {
             return res.status(400).json({ error: "Dados inválidos na requisição" });
         }
-    
+
         console.log(`Iniciando a restauração da venda com ID: ${id}, Produto ID: ${product_id}, Quantidade: ${quantidade}`);
-    
+
         db.beginTransaction(err => {
             if (err) {
                 return res.status(500).json({ error: 'Failed to start transaction: ' + err });
             }
-    
+
             // Capturando a quantidade atual
             db.query('SELECT quantidade FROM produto WHERE id = ?', [product_id], (err, results) => {
                 if (err) {
                     console.error("Erro ao obter a quantidade do produto:", err);
                     return res.status(500).json({ error: 'Failed to get quantidade: ' + err });
                 }
-    
+
                 if (results.length === 0) {
                     console.warn('Produto não encontrado para o ID:', product_id);
                     return res.status(404).json({ error: 'Produto não encontrado' });
                 }
-    
+
                 const quantidadeAtual = results[0].quantidade;
                 console.log(`Quantidade atual do produto (ID: ${product_id}): ${quantidadeAtual}`);
-    
+
                 if (quantidadeAtual < quantidade) {
                     console.warn('Quantidade insuficiente no estoque. Quantidade solicitada:', quantidade, 'Quantidade atual:', quantidadeAtual);
                     return res.status(400).json({ error: 'Quantidade insuficiente no estoque' });
                 }
-    
+
                 const quantidadeNova = quantidadeAtual - quantidade;
                 console.log(`Nova quantidade do produto (ID: ${product_id}) após subtração: ${quantidadeNova}`);
-    
+
                 // Atualiza o valor da quantidade
                 const queryResturaVenda = "UPDATE vendas SET sts_venda = ? WHERE id = ?";
                 const queryResturaProduto = "UPDATE produto SET quantidade = ? WHERE id = ?";
-    
+
                 db.query(queryResturaVenda, [confirmada, id], (err, results) => {
                     if (err) {
                         console.error('Erro ao atualizar a venda:', err);
@@ -247,9 +270,9 @@ const vendaController = {
                             res.status(500).json({ error: 'Failed to update venda: ' + err });
                         });
                     }
-    
+
                     console.log(`Venda (ID: ${id}) atualizada com sucesso para o status: ${confirmada}`);
-    
+
                     // Atualiza o produto se der certo
                     db.query(queryResturaProduto, [quantidadeNova, product_id], (err, results) => {
                         if (err) {
@@ -258,9 +281,9 @@ const vendaController = {
                                 res.status(500).json({ error: 'Failed to update produto: ' + err });
                             });
                         }
-    
+
                         console.log(`Produto (ID: ${product_id}) atualizado com sucesso para a nova quantidade: ${quantidadeNova}`);
-    
+
                         // Se for um sucesso, ele dá commit no banco
                         db.commit(err => {
                             if (err) {
@@ -269,7 +292,7 @@ const vendaController = {
                                     res.status(500).json({ error: 'Failed to commit transaction: ' + err });
                                 });
                             }
-    
+
                             console.log('Transação concluída com sucesso.');
                             // Caso tudo ocorra bem, ele retorna sucesso
                             res.status(201).json({ message: "Venda restaurada com sucesso!" });

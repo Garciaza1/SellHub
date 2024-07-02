@@ -1,8 +1,12 @@
-import { faDoorOpen, faTrash, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faDoorOpen,
+  faTrash,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import Link from "next/link";
 
 const MyMenu = () => {
   return (
@@ -20,7 +24,7 @@ const MyMenu = () => {
         transition
         className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
-        <div className="py-1 flex justify-center">
+        <div className="py-1 flex mt-1 justify-center">
           <a
             href="http://localhost:3000/Clients/Profile"
             className="text-gray-900 hover:animate-pulse cursor-pointer hover:text-gray-600 transition ease-in-out duration-1000 flex items-center"
@@ -29,7 +33,20 @@ const MyMenu = () => {
             Account settings
           </a>
         </div>
-        <hr className="my-1"/>
+
+        <hr className="my-1" />
+
+        <div className="py-1 flex justify-center">
+          <a
+            href="http://localhost:3000/Clients/Compras"
+            className="text-gray-900 hover:animate-pulse cursor-pointer hover:text-gray-600 transition ease-in-out duration-1000 flex items-center"
+          >
+            <FontAwesomeIcon icon={faCartShopping} className="me-2 h-5" />
+            Minhas Compras
+          </a>
+        </div>
+
+        <hr className="my-1" />
         <div className="py-1 flex justify-center">
           <a
             href="http://localhost:3000/Sellers/MeusProdutos/Deletados"
@@ -39,7 +56,9 @@ const MyMenu = () => {
             Deleted Products
           </a>
         </div>
-        <hr className="my-1"/>
+
+        <hr className="my-1" />
+
         <div className="py-1 flex justify-center">
           <a
             href="/Logout"

@@ -18,7 +18,7 @@ export default async function Produto({ params }: { params: { id: string } }) {
     return redirect("http://localhost:3000/Login");
   }
   const { id } = params;
-console.log("id params: " + id)
+  console.log("id params: " + id)
   //chama o produto e passa o id do vendedor
   const product = await GetProduct(id);
   const vendedor_ID = product?.user_id;
