@@ -3,7 +3,7 @@ interface ComprasProps {
 }
 
 const Compras: React.FC<ComprasProps> = ({ compras }) => {
-  console.log(compras);
+  // console.log(compras);
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="content">

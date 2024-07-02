@@ -2,8 +2,8 @@ import { metadata } from "../../../layout";
 import HeaderMenu from "../../../Components/head/header";
 import FooterMenu from "../../../Components/foot/footer";
 import Categoria from "@/app/Components/Client/Categorias";
-import fetchUserSession from "@/app/lib/helpers/SessionData";
-import { redirect } from "next/navigation";
+// import fetchUserSession from "@/app/lib/helpers/SessionData";
+// import { redirect } from "next/navigation";
 
 const safeMetadata = {
   title: typeof metadata.title === "string" ? metadata.title : "",

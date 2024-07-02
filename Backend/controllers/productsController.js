@@ -19,7 +19,7 @@ const productController = {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
         const query = 'INSERT INTO produto (user_id, nome, descricao, imagem,  preco, quantidade, codigo, garantia, categoria, marca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-
+        
         db.query(query, [user_id, nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca], (err, results) => {
             if (err) {
                 res.status(500).json({ error: 'Failed to create product, may alredy exists <br></br>' + err })

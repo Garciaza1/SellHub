@@ -2,20 +2,28 @@ import { metadata } from "./layout";
 import HeaderMenu from "./Components/head/header";
 import FooterMenu from "./Components/foot/footer";
 import TodosProdutos from "./Components/Client/Produtos";
-import { Suspense } from "react";
-import Loading from "./loading";
+import fetchUserSession from "@/app/lib/helpers/SessionData";
+
 
 const safeMetadata = {
   title: typeof metadata.title === "string" ? metadata.title : "",
   description: metadata.description || "",
 };
 
+
 export default async function Home() {
+  
+  const session = await fetchUserSession()
+  if (!session) {
+    const user = null
+  }
+  const user = session;
+
   return (
     <>
       <HeaderMenu metadata={safeMetadata} />
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <TodosProdutos></TodosProdutos>
+        <TodosProdutos user={user}></TodosProdutos>
       </main>
       <FooterMenu />
     </>

@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
-const TodosProdutos = () => {
+const TodosProdutos = (user: null | any) => {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -26,9 +28,29 @@ const TodosProdutos = () => {
         setLoading(false);
       }
     };
-
     pegaProdutos();
   }, []);
+
+  const handleCarrinho = async (product_id: string) => {
+    if (!user) {
+      setError("Impossível adicionar ao carrinho, faça login!");
+      return;
+    }
+    try {
+      console.log(user.user.id, product_id)
+      const response = await axios.post("http://localhost:5000/Carrinho/Post", {
+        user_id: user.user.id,
+        product_id,
+        quantidade: 1,
+      });
+      if (response.status === 200) {
+        setError("Produto adicionado ao carrinho com sucesso!");
+        // abrir modal posteriormente
+      }
+    } catch (err: any) {
+      setError("Erro ao adicionar produto ao carrinho: " + err.message);
+    }
+  };
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -137,8 +159,20 @@ const TodosProdutos = () => {
                         Sem Estoque
                       </div>
                     ) : (
-                      <div className="text-center font-semibold text-lg my-1 text-green-600">
-                        Em Estoque
+                      <div>
+                        <div className="text-center font-semibold text-lg my-1 text-green-600">
+                          Em Estoque
+                        </div>
+                        <div className="mt-4">
+                          <button
+                            onClick={() => handleCarrinho(product.id)}
+                            className="p-1 px-2 bg-blue-500 rounded-full"
+                            type="button"
+                          >
+                            <FontAwesomeIcon icon={faPlusCircle} />
+                          </button>
+                          {error}
+                        </div>
                       </div>
                     )}
                   </div>

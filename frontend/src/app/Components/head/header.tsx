@@ -19,6 +19,7 @@ import {
 import fetchUserSession from "@/app/lib/helpers/SessionData";
 import Link from "next/link";
 import Menu from "./menu";
+import MyMenuClient from "./menuClient";
 
 interface HeaderProps {
   metadata: {
@@ -325,13 +326,7 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
       </div>
       <div className="flex items-center me-4">
         {/* trocar pra icone de perfil com logout e usersettins fazer outro menu. */}
-        <Link
-          href="/Logout"
-          className="hover:animate-bounce cursor-pointer hover:text-yellow-500 transition ease-in-out duration-1000 flex items-center"
-        >
-          <FontAwesomeIcon icon={faDoorOpen} className="mx-2 h-5" />
-          Log-out
-        </Link>
+        <MyMenuClient/>
       </div>
     </div>
   );

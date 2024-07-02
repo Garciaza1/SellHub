@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import Carrinho from "@/app/Components/Client/Carrinho";
 import getCompras from "@/app/lib/helpers/GetCompras";
 import { Suspense } from "react";
+import getCarrinho from "@/app/lib/helpers/GetCarrinho";
 
 const safeMetadata = {
   title: typeof metadata.title === "string" ? metadata.title : "",
@@ -18,8 +19,8 @@ export default async function ComprasClient() {
     if (!session) {
       return redirect("http://localhost:3000/Login");
     }
-    const carrinho = await getCompras(session.id);
-
+    const carrinho = await getCarrinho(session.id);
+    // console.log(carrinho)
     if (carrinho === null || !carrinho) {
       return (
         <>

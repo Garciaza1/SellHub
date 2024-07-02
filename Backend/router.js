@@ -6,6 +6,7 @@ const venda = require('./controllers/vendaController');
 const product = require('./controllers/productsController');
 const dashboard = require('./controllers/dashboardController');
 const categoriaController = require('./controllers/categoriasController');
+const carrinhoController = require('./controllers/carrinhoController');
 
 // ========================================================================== \\
 
@@ -62,5 +63,17 @@ router.get('/Dashboard/Cliente/DoDia/:id', dashboard.SomaVendasDoDiaC);
 
 //rota categorias
 router.get('/Categoria/Get/:categoria',  categoriaController.getCategoria);
+
+// ========================================================================== \\
+
+//rota Carrinho
+
+router.get('/Carrinho/Get/:user_id', carrinhoController.getCarrinho)
+
+router.post('/Carrinho/Post', carrinhoController.createCarrinho)
+
+router.put('/Carrinho/Put/Quantidade/:id', carrinhoController.editQuantidade)
+
+router.delete('/Carrinho/Delete/:id', carrinhoController.delete)
 
 module.exports = router;

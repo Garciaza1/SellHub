@@ -2,10 +2,18 @@ const db = require('../config/db');
 
 const carrinhoController = {
 
-    getAll: (req, res) => {
-        const query = 'SELECT * FROM produto WHERE deleted_at IS NULL';
-        db.query(query, (err, results) => {
+    getCarrinho: (req, res) => {
+        const { user_id } = req.params
+
+        if (!user_id) {
+            return res.status(400).json({ error: 'ID está null | undefined.' });
+        }
+
+        const query = 'SELECT carrinho.*, produto.nome, produto.garantia, produto.preco, produto.quantidade as disponivel ,produto.imagem FROM carrinho JOIN produto ON carrinho.product_id = produto.id WHERE carrinho.user_id = ?';
+
+        db.query(query, [user_id], (err, results) => {
             if (err) {
+                console.log(err)
                 res.status(500).json({ error: err });
             } else {
                 res.status(200).json(results);
@@ -13,30 +21,56 @@ const carrinhoController = {
         });
     },
 
-    createProduct: (req, res) => {
-        const { user_id } = req.body;
-        if (!nome || !descricao || !imagem || !preco || !quantidade || !codigo || !garantia || !categoria || !marca || !user_id) {
+    createCarrinho: (req, res) => {
+
+        const { user_id, product_id, quantidade } = req.body;
+
+        if (!product_id || !user_id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
-        const query = 'INSERT INTO produto (user_id, nome, descricao, imagem,  preco, quantidade, codigo, garantia, categoria, marca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
-        db.query(query, [user_id, nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca], (err, results) => {
-            if (err) {
-                res.status(500).json({ error: 'Failed to create product, may alredy exists <br></br>' + err })
-                return;
+        db.query('SELECT quantidade FROM carrinho WHERE user_id = ? AND product_id = ?',
+            [user_id, product_id], (err, results) => {
+                if (err) {
+                    console.log('impossível recuperar carrinho')
+                    return res.status(500).json({ error: err })
+                }
+                if (results.length > 0) { //produto ja esta no carrinho
+                    const novaQuantidade = results[0].quantidade + quantidade;
+                    const query = 'UPDATE carrinho SET quantidade = ? WHERE user_id = ? AND product_id = ?'
+                    db.query(query, [novaQuantidade, user_id, product_id], (err, results) => {
+                        if (err) {
+                            console.log({ error: err })
+                            return res.status(500).json({ error: err })
+                        }
+                        return results.affectedRows;
+                    })
+                } else {
+                    const query = 'INSERT INTO carrinho (user_id,product_id,quantidade) VALUES(?,?,?)'
+                    db.query(query, [user_id, product_id, quantidade], (err, results) => {
+                        if (err) {
+                            res.status(500).json({ error: 'Failed to create carrinho, may alredy exists <br></br>' + err })
+                            return;
+                        }
+                        console.log('Carrinho criado com sucesso, carrinho: ', results)
+                        res.status(201).json({ message: "Cadastro de carrinho completo" })
+                    });
+                }
             }
-            console.log('produto cadastrado com sucesso, produto:', results)
-            res.status(201).json({ id: results.insertId, nome, imagem })
-        })
+        )
     },
 
     editQuantidade: (req, res) => {
-        const { nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca, id } = req.body;
-        if (!nome || !descricao || !imagem || !preco || !quantidade || !codigo || !categoria || !marca || !id) {
+
+        const { quantidade, id } = req.body;
+
+        if (!quantidade || !id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
-        const query = `UPDATE produto SET nome = ?, descricao = ?, imagem = ?, preco = ?, quantidade = ?, codigo = ?, garantia = ?, categoria = ?, marca = ? WHERE id = ?;`;
-        db.query(query, [nome, descricao, imagem, preco, quantidade, codigo, garantia, categoria, marca, id], (err, results) => {
+
+        const query = `UPDATE produto SET quantidade = ? WHERE id = ?`;
+
+        db.query(query, [quantidade, id], (err, results) => {
             if (err) {
                 res.status(500).json({ error: 'Failed to update product, may alredy exists <br></br>' + err })
                 return;
@@ -46,38 +80,38 @@ const carrinhoController = {
         })
     },
 
-    getProduct: (req, res) => {
+    // getCarrinho: (req, res) => {
 
-        const { id } = req.params;
+    //     const { id } = req.params;
 
-        if (!id) {
-            return res.status(400).json({ error: 'ID is required' });
-        }
-        const query = 'SELECT * FROM produto WHERE id = ? AND deleted_at IS NULL';
+    //     if (!id) {
+    //         return res.status(400).json({ error: 'ID is required' });
+    //     }
+    //     const query = 'SELECT * FROM produto WHERE id = ? AND deleted_at IS NULL';
 
-        db.query(query, [id], (err, results) => {
-            if (err) {
-                res.status(500).json({ error: err });
-            } else if (results.length === 0) {
-                res.status(404).json({ message: 'No products found for this id' });
-            } else {
-                res.status(200).json(results);
-            }
-        });
-    },
+    //     db.query(query, [id], (err, results) => {
+    //         if (err) {
+    //             res.status(500).json({ error: err });
+    //         } else if (results.length === 0) {
+    //             res.status(404).json({ message: 'No products found for this id' });
+    //         } else {
+    //             res.status(200).json(results);
+    //         }
+    //     });
+    // },
 
     delete: (req, res) => {
         const { id } = req.params
 
         if (!id) {
-            return res.status(400).json({ error: 'User ID is required' });
+            return res.status(400).json({ error: 'ID is required' });
         }
 
-        db.query("UPDATE produto SET deleted_at = NOW() WHERE id = ?", [id], (err, results) => {
+        db.query("DELETE carrinho WHERE id = ?", [id], (err, results) => {
             if (err) {
-                console.log({"erro ao deletar produto id: ": id, Error: err})
+                console.log({ "erro ao deletar produto id: ": id, Error: err })
                 return res.status(500).json({ error: err });
-            }else {
+            } else {
                 console.log("deleção confirmada! id: " + id)
                 return res.status(200).json(results);
             }

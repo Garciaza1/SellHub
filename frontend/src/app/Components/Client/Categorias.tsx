@@ -20,7 +20,7 @@ const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
         );
 
         if (response.status === 200 && response.data && response.data.results) {
-          console.log(response.data.results)
+          // console.log(response.data.results)
           setProducts(response.data.results);
           setIszero(response.data.results.length === 0);
         } else {
@@ -90,7 +90,7 @@ const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
               </div>
               <div className="flex justify-center">
                 <a
-                  href={`http://localhost:3000/Sellers/MeusProdutos/Edit/${product.id}`}
+                  href={`http://localhost:3000/Clients/Product/${product.id}`}
                   className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-90 hover:mt-3 duration-300"
                 >
                   <img

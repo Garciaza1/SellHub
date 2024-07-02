@@ -2,14 +2,13 @@ import {
   faCartPlus,
   faCartShopping,
   faDoorOpen,
-  faTrash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-const MyMenu = () => {
+const MyMenuClient = () => {
   return (
     <Menu as="div" className="relative inline-block text-left p-0 m-0">
       <div>
@@ -25,7 +24,7 @@ const MyMenu = () => {
         transition
         className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
       >
-        <div className="py-1 flex mt-1 justify-start ms-2">
+        <div className="py-1 flex mt-1 justify-center">
           <a
             href="http://localhost:3000/Clients/Profile"
             className="text-gray-900 hover:animate-pulse cursor-pointer hover:text-gray-600 transition ease-in-out duration-1000 flex items-center"
@@ -37,7 +36,7 @@ const MyMenu = () => {
 
         <hr className="my-1" />
 
-        <div className="py-1 flex justify-start ms-1">
+        <div className="py-1 flex justify-center">
           <a
             href="http://localhost:3000/Clients/Compras"
             className="text-gray-900 hover:animate-pulse cursor-pointer hover:text-gray-600 transition ease-in-out duration-1000 flex items-center"
@@ -48,25 +47,13 @@ const MyMenu = () => {
         </div>
 
         <hr className="my-1" />
-
-        <div className="py-1 flex justify-start ms-1">
+        <div className="py-1 flex justify-center">
           <a
-            href="http://localhost:3000/Clients/Carrinho"
+            href="http://localhost:3000/Sellers/Clients/Carrinho"
             className="text-gray-900 hover:animate-pulse cursor-pointer hover:text-gray-600 transition ease-in-out duration-1000 flex items-center"
           >
             <FontAwesomeIcon icon={faCartPlus} className="me-2 h-5" />
             Carrinho
-          </a>
-        </div>
-
-        <hr className="my-1" />
-        <div className="py-1 flex justify-start ms-2">
-          <a
-            href="http://localhost:3000/Sellers/MeusProdutos/Deletados"
-            className="text-gray-900 hover:animate-pulse cursor-pointer hover:text-gray-600 transition ease-in-out duration-1000 flex items-center"
-          >
-            <FontAwesomeIcon icon={faTrash} className="me-2 h-5" />
-            Deleted Products
           </a>
         </div>
 
@@ -85,4 +72,4 @@ const MyMenu = () => {
     </Menu>
   );
 };
-export default MyMenu;
+export default MyMenuClient;
