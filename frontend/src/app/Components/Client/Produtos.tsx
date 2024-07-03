@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 const TodosProdutos = (user: null | any) => {
   const [products, setProducts] = useState<any[]>([]);
@@ -166,10 +166,10 @@ const TodosProdutos = (user: null | any) => {
                         <div className="mt-4">
                           <button
                             onClick={() => handleCarrinho(product.id)}
-                            className="p-1 px-2 bg-blue-500 rounded-full"
+                            className="p-2 px-4 bg-blue-500 rounded-xl"
                             type="button"
                           >
-                            <FontAwesomeIcon icon={faPlusCircle} />
+                            <FontAwesomeIcon icon={faCartPlus} className="text-2xl"/>
                           </button>
                           {error}
                         </div>

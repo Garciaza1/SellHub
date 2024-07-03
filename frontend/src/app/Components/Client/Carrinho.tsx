@@ -1,6 +1,9 @@
 "use client";
+import { useState } from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface CarrinhoProps {
   carrinho: any;
@@ -8,6 +11,23 @@ interface CarrinhoProps {
 
 const Carrinho: React.FC<CarrinhoProps> = ({ carrinho }) => {
   const quantidadeProdutos = carrinho.length;
+  const router = useRouter();
+  const [error, setError] = useState<any | null>(null);
+
+  const handleDelete = async (id: number) => {
+    try {
+      const results = await axios.delete(
+        `http://localhost:5000/Carrinho/Delete/${id}`
+      );
+      if (results.status === 200) {
+        console.log(results);
+      }
+      router.refresh();
+    } catch (err) {
+      setError(err);
+      console.log(err);
+    }
+  };
 
   // console.log(carrinho);
   return (
@@ -58,7 +78,10 @@ const Carrinho: React.FC<CarrinhoProps> = ({ carrinho }) => {
                     R$ {cart.preco * cart.quantidade}
                   </td>
                   <td className="px-5 py-4">
-                    <button className="px-1.5 h-6 rounded-full bg-red-600">
+                    <button
+                      onClick={() => handleDelete(cart.id)}
+                      className="px-1.5 h-6 rounded-full bg-red-600"
+                    >
                       {/* tirar do carrinho chamar o excluir e regarregar a pag */}
                       <FontAwesomeIcon icon={faXmark} />
                     </button>
@@ -73,21 +96,39 @@ const Carrinho: React.FC<CarrinhoProps> = ({ carrinho }) => {
               <hr className="mt-2" />
               <div className="flex justify-center py-6">
                 <p>
-                  Quantidade: <span className="font-semibold "> {carrinho.reduce((acc, item) => acc + item.quantidade, 0)}</span>
+                  Quantidade:{" "}
+                  <span className="font-semibold ">
+                    {" "}
+                    {carrinho.reduce((acc, item) => acc + item.quantidade, 0)}
+                  </span>
                 </p>
               </div>
               <hr />
               <div className="flex justify-center py-6">
-                <p>Total em <span className="font-semibold ">R$ {carrinho.reduce((acc, item) => acc + item.preco * item.quantidade,0)}</span></p>
+                <p>
+                  Total em{" "}
+                  <span className="font-semibold ">
+                    R${" "}
+                    {carrinho.reduce(
+                      (acc, item) => acc + item.preco * item.quantidade,
+                      0
+                    )}
+                  </span>
+                </p>
               </div>
               {/* https://youtu.be/wARWyPzNA9o?si=JME8fFK3Qgl9jOvt&t=1775 */}
             </div>
             <hr />
             <div className="pt-3">
               <div className="flex justify-center ">
-                <button  className="rounded-xl border-2 px-2 py-1">Comprar --&gt;</button>
+                <a href="http://localhost:3000/Clients/Carrinho/checkout">
+                  <button className="rounded-xl border-2 px-2 py-1">
+                    Comprar --&gt;
+                  </button>
+                </a>
               </div>
             </div>
+            {error}
           </aside>
         </section>
       </div>

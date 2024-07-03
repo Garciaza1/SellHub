@@ -107,7 +107,7 @@ const carrinhoController = {
             return res.status(400).json({ error: 'ID is required' });
         }
 
-        db.query("DELETE carrinho WHERE id = ?", [id], (err, results) => {
+        db.query("DELETE FROM carrinho WHERE id = ?", [id], (err, results) => {
             if (err) {
                 console.log({ "erro ao deletar produto id: ": id, Error: err })
                 return res.status(500).json({ error: err });

@@ -4,7 +4,6 @@ import FooterMenu from "../../Components/foot/footer";
 import fetchUserSession from "@/app/lib/helpers/SessionData";
 import { redirect } from "next/navigation";
 import Carrinho from "@/app/Components/Client/Carrinho";
-import getCompras from "@/app/lib/helpers/GetCompras";
 import { Suspense } from "react";
 import getCarrinho from "@/app/lib/helpers/GetCarrinho";
 
