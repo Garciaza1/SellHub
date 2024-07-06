@@ -23,7 +23,7 @@ const carrinhoController = {
 
     createCarrinho: (req, res) => {
 
-        const { user_id, product_id, quantidade } = req.body;
+        const { user_id, product_id, quantidade, id_vendedor } = req.body;
 
         if (!product_id || !user_id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
@@ -46,8 +46,8 @@ const carrinhoController = {
                         return results.affectedRows;
                     })
                 } else {
-                    const query = 'INSERT INTO carrinho (user_id,product_id,quantidade) VALUES(?,?,?)'
-                    db.query(query, [user_id, product_id, quantidade], (err, results) => {
+                    const query = 'INSERT INTO carrinho (user_id,product_id,quantidade,id_vendedor) VALUES(?,?,?,?)'
+                    db.query(query, [user_id, product_id, quantidade, id_vendedor], (err, results) => {
                         if (err) {
                             res.status(500).json({ error: 'Failed to create carrinho, may alredy exists <br></br>' + err })
                             return;

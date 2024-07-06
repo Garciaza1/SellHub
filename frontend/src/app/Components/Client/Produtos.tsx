@@ -31,7 +31,7 @@ const TodosProdutos = (user: null | any) => {
     pegaProdutos();
   }, []);
 
-  const handleCarrinho = async (product_id: string) => {
+  const handleCarrinho = async (product_id: string, id_vendedor: string) => {
     if (!user) {
       setError("Impossível adicionar ao carrinho, faça login!");
       return;
@@ -41,6 +41,7 @@ const TodosProdutos = (user: null | any) => {
       const response = await axios.post("http://localhost:5000/Carrinho/Post", {
         user_id: user.user.id,
         product_id,
+        id_vendedor,
         quantidade: 1,
       });
       if (response.status === 200) {
@@ -165,7 +166,7 @@ const TodosProdutos = (user: null | any) => {
                         </div>
                         <div className="mt-4">
                           <button
-                            onClick={() => handleCarrinho(product.id)}
+                            onClick={() => handleCarrinho(product.id, product.user_id)}
                             className="p-2 px-4 bg-blue-500 rounded-xl"
                             type="button"
                           >

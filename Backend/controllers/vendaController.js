@@ -4,7 +4,9 @@ const vendaController = {
 
     createVenda: (req, res) => {
         const { endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id } = req.body;
-
+        
+        console.log({ endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id })
+        
         if (!endereco || !numResidencia || !cep || !valor || !quantidade || !metodoPagamento || !cpf || !user_id || !id_produto || !vendedor_id) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }

@@ -1,18 +1,17 @@
 "use client";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 // import GetUser from "@/app/lib/helpers/UserData";
-import fetchUserSession from "@/app/lib/helpers/SessionData";
+// import fetchUserSession from "@/app/lib/helpers/SessionData";
 
 interface checkoutProps {
   carrinho: any;
-  vendedor: any;
   user_id: any;
 }
 
 const CarrinhoCompra: React.FC<checkoutProps> = ({ carrinho, user_id }) => {
-  const [id_user, setIdUser] = useState<any>("");
+  // const [id_user, setIdUser] = useState<any>("");
   const [cpf, setCpf] = useState("");
   const [endereco, setEndereco] = useState("");
   const [numResidencia, setNumResidencia] = useState("");
@@ -21,20 +20,19 @@ const CarrinhoCompra: React.FC<checkoutProps> = ({ carrinho, user_id }) => {
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
-  const params = useParams();
-  const quantidade = params.quantidade;
+  // const quantidade = params.quantidade;
   //   const valor = product.preco * quantidade;
 
-  const fetchUser = async () => {
-    try {
-      const user = await fetchUserSession();
-      const id = user?.id;
-      setIdUser(id);
-      console.log(user);
-    } catch (error) {
-      console.error("Erro ao buscar sessão do usuário:", error);
-    }
-  };
+  // const fetchUser = async () => {
+  //   try {
+  //     const user = await fetchUserSession();
+  //     const id = user?.id;
+  //     setIdUser(id);
+  //     console.log(user);
+  //   } catch (error) {
+  //     console.error("Erro ao buscar sessão do usuário:", error);
+  //   }
+  // };
 
   // useEffect(() => {
   // }, []);
@@ -43,34 +41,36 @@ const CarrinhoCompra: React.FC<checkoutProps> = ({ carrinho, user_id }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      await fetchUser();
+
+    // await fetchUser();
+    for (const item of carrinho) {
+      console.log(item);
       const data = {
         endereco,
         numResidencia,
         cep,
-        // valor,
-        quantidade,
+        valor: item.preco * item.quantidade,
+        quantidade: item.quantidade,
         metodoPagamento,
         cpf,
         user_id: user_id,
-        // id_produto: product.id,
-        // vendedor_id: product.vendedor_id,
+        id_produto: item.id,
+        vendedor_id: item.id_vendedor,
       };
-      //   console.log(data);
-      const response = await axios.post(
-        "http://localhost:5000/Vendas/Post/Compra", //trocar pro checkout
-        data
-      );
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/Vendas/Post/Compra", //trocar pro checkout
+          data
+        );
+        console.log("Resposta da API:", response.data);
 
-      console.log("Resposta da API:", response.data);
-
-      setError(null); // Limpar qualquer erro anterior
-      alert("Compra confirmada com sucesso!");
-      router.push("http://localhost:3000/Clients/Compras");
-    } catch (err) {
-      console.error("Erro ao enviar os dados:", err);
-      setError("Erro ao enviar os dados. Por favor, tente novamente.");
+        setError(null); // Limpar qualquer erro anterior
+        alert("Compra confirmada com sucesso!");
+        router.push("http://localhost:3000/Clients/Compras");
+      } catch (err) {
+        console.error("Erro ao enviar os dados:", err);
+        setError("Erro ao enviar os dados. Por favor, tente novamente.");
+      }
     }
   };
 
@@ -285,9 +285,9 @@ const CarrinhoCompra: React.FC<checkoutProps> = ({ carrinho, user_id }) => {
                 className="form-check-label ml-2 text-red-600 text-lg font-semibold"
                 htmlFor="Pix"
               > */}
-                {/* R$ {valor} */}
-                <br></br>
-                {/* Quantidade: {quantidade} */}
+              {/* R$ {valor} */}
+              <br></br>
+              {/* Quantidade: {quantidade} */}
               {/* </label> */}
             </div>
           </div>

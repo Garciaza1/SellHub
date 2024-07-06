@@ -38,7 +38,7 @@ export default async function ComprasClient() {
           <HeaderMenu metadata={safeMetadata} />
           <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <Suspense fallback={<>Carregando...</>}>
-              <CarrinhoCheckout carrinho={carrinho} />
+              <CarrinhoCheckout carrinho={carrinho} user_id={session.id}/>
             </Suspense>
           </main>
           <FooterMenu />
