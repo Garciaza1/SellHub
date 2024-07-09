@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface categoriaProps {
   categoria: string;
@@ -36,10 +38,34 @@ const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
     pegaProdutos();
   }, [categoria]);
 
+  const handleCarrinho = async (product_id: string, id_vendedor: string) => {
+    if (!user) {
+      setError("Impossível adicionar ao carrinho, faça login!");
+      return;
+    }
+    try {
+      console.log(user.user.id, product_id);
+      const response = await axios.post("http://localhost:5000/Carrinho/Post", {
+        user_id: user.user.id,
+        product_id,
+        id_vendedor,
+        quantidade: 1,
+      });
+      if (response.status === 200) {
+        setError("Produto adicionado ao carrinho com sucesso!");
+        // abrir modal posteriormente
+      }
+    } catch (err: any) {
+      setError("Erro ao adicionar produto ao carrinho: " + err.message);
+    }
+  };
+
   if (loading) {
     return (
       <div className="container">
-        <div className="text-center mb-5 text-4xl font-semibold">Produtos</div>
+        <div className="text-center mb-5 text-4xl font-semibold">
+          {categoria}
+        </div>
         <div
           className="bg-zinc-900 p-12 py-20 rounded-xl flex flex-wrap justify-center text-center "
           style={{ height: "65vh", width: "auto" }}
@@ -68,63 +94,75 @@ const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
   }
 
   return (
-    <div className="container bg-grid-slate-100">
-      <div className="text-center mb-5 text-4xl font-semibold">
-        Meus produtos
-      </div>
-      <div className="bg-zinc-900 p-8 rounded-lg grid gap-4 grid-cols-4 grid-rows-2 justify-center text-center">
-        {error ? (
-          <>
-            <p>{error}</p>
-            <p>Você não tem Produtos Cadastrados</p>
-          </>
-        ) : isZero ? (
-          <div>
-            <p>Não tem produtos na categoria {categoria}!</p>
+    <div className="container">
+      <div className="text-center mb-5 text-4xl font-semibold">{categoria}</div>
+      <div className="bg-zinc-900 pb-20 pt-10 rounded-xl flex justify-center text-center h-min">
+        <div className="m-0 p-0">
+          <div className="grid gap-10 grid-cols-4 grid-rows-2 justify-center">
+            {error ? (
+              <>
+                <p>{error}</p>
+                <p>não tem produtos nesta pagina!</p>
+              </>
+            ) : (
+              products.map((product, index) => {
+                const semEstoque = product.quantidade <= 0;
+                return (
+                  <div
+                    key={index}
+                    className="bg-zinc-950 p-4 rounded-lg mb-4 w-72"
+                  >
+                    <div className="flex justify-center">
+                      <a
+                        href={`http://localhost:3000/Clients/Product/${product.id}`}
+                        className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-90 hover:mt-3 duration-300"
+                      >
+                        <img
+                          className="my-3 rounded-xl object-cover size-96"
+                          src={product.imagem}
+                          alt={product.nome}
+                          width={180}
+                        />
+                      </a>
+                    </div>
+                    <div className="text-center font-semibold text-2xl mt-2">
+                      {product.nome}
+                    </div>
+                    <div className="text-center font-semibold text-lg my-1">
+                      R$ {product.preco}
+                    </div>
+                    {semEstoque ? (
+                      <div className="text-center font-semibold text-lg my-1 text-red-600">
+                        Sem Estoque
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="text-center font-semibold text-lg my-1 text-green-600">
+                          Em Estoque
+                        </div>
+                        <div className="mt-4">
+                          <button
+                            onClick={() =>
+                              handleCarrinho(product.id, product.user_id)
+                            }
+                            className="p-2 px-4 bg-blue-500 rounded-xl"
+                            type="button"
+                          >
+                            <FontAwesomeIcon
+                              icon={faCartPlus}
+                              className="text-2xl"
+                            />
+                          </button>
+                          {error}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
           </div>
-        ) : (
-          products.map((product, index) => (
-            <div key={index} className="bg-zinc-950 p-6 rounded-lg mx-2">
-              <div className="text-center font-semibold text-2xl">
-                {product.nome}
-              </div>
-              <div className="flex justify-center">
-                <a
-                  href={`http://localhost:3000/Clients/Product/${product.id}`}
-                  className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-90 hover:mt-3 duration-300"
-                >
-                  <img
-                    className="my-3 rounded-xl object-cover size-80"
-                    src={`${product.imagem}`}
-                    alt={product.nome}
-                    width={180}
-                  />
-                </a>
-              </div>
-              <div className="text-center font-semibold text-lg my-1">
-                {product.descricao}
-              </div>
-              <div className="text-center font-semibold text-lg my-1">
-                R$ {product.preco}
-              </div>
-              <div className="text-center font-semibold text-lg my-1">
-                Garantia:{" "}
-                {product.garantia === 0
-                  ? "Nenhuma"
-                  : product.garantia + " Meses"}
-              </div>
-              <div className="font-semibold text-lg my-1">
-                Categoria: {product.categoria}
-              </div>
-              <div className="font-semibold text-lg my-1">
-                Marca: {product.marca}
-              </div>
-              <div className="text-center font-semibold text-lg my-1">
-                Código: {product.codigo}
-              </div>
-            </div>
-          ))
-        )}
+        </div>
       </div>
     </div>
   );
