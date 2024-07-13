@@ -1,7 +1,8 @@
 "use client";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 interface produtoProps {
   vendedor: any;
@@ -37,10 +38,10 @@ const Produto: React.FC<produtoProps> = ({ vendedor }) => {
     pegaProduto();
   }, [id]);
 
-  const handleQuantidadeChange = (event) => {
-    setQuantidade(event.target.value);
+  const handleQuantidadeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setQuantidade(Number(event.target.value));
   };
-  console.log(vendedor);
+  // console.log(vendedor);
 
   return (
     <div className="container">

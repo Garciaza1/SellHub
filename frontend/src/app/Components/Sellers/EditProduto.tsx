@@ -10,6 +10,7 @@ import React, {
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 interface EditProdutoProps {
   id: string;
@@ -227,7 +228,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
                 )}
                 <div className="flex justify-start pt-3 h-20">
                   <p className="text-sm mx-3">Imagem antiga =&gt;</p>
-                  <img
+                  <Image
                     src={product.imagem}
                     alt={product.imagem_nome}
                     className="mb-0 pb-0"

@@ -18,10 +18,10 @@ interface VendasMapProps {
   salesData: Venda[];
 }
 
-interface Coordenadas {
-  lat: number;
-  lon: number;
-}
+// interface Coordenadas {
+//   lat: number;
+//   lon: number;
+// }
 
 const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
   const [markers, setMarkers] = useState<any[]>([]);

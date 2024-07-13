@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 const TodosProdutos = (user: null | any) => {
   const [products, setProducts] = useState<any[]>([]);
@@ -76,7 +77,7 @@ const TodosProdutos = (user: null | any) => {
           className="bg-zinc-900 p-12 py-20 rounded-xl flex flex-wrap justify-center text-center "
           style={{ height: "65vh", width: "auto" }}
         >
-          {[...Array(4).keys()].map((index) => (
+          {Array.from({ length: 4 }).map((_, index) => (
             <div
               key={index}
               className="bg-zinc-950 px-6 w-72 rounded-lg mx-4 mb-4 animate-pulse flex justify-center pb-24"
@@ -87,6 +88,8 @@ const TodosProdutos = (user: null | any) => {
                   <img
                     className="my-3  bg-zinc-700 animate-pulse "
                     style={{ height: "20rem" }}
+                    src={""}
+                    alt=""
                   />
                 </div>
                 <div className="bg-zinc-800 h-1 w-full rounded-lg p-5 mb-1 animate-pulse"></div>

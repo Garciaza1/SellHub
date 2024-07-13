@@ -14,10 +14,8 @@ const safeMetadata = {
 export default async function Home() {
   
   const session = await fetchUserSession()
-  if (!session) {
-    const user = null
-  }
-  const user = session;
+  const user = session || null;
+
 
   return (
     <>

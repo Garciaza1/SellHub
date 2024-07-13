@@ -5,6 +5,7 @@ import Profile from "../../Components/Client/Profile";
 import fetchUserSession from "@/app/lib/helpers/SessionData";
 import { redirect } from "next/navigation";
 
+
 const safeMetadata = {
   title: typeof metadata.title === "string" ? metadata.title : "",
   description: metadata.description || "",
@@ -15,7 +16,7 @@ export default async function ComprasClient() {
   if (!session) {
     return redirect("http://localhost:3000/Login");
   }
-  // console.log(session)
+
   return (
     <>
       <HeaderMenu metadata={safeMetadata} />

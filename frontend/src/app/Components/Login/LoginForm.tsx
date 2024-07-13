@@ -14,7 +14,7 @@ export default function LoginForm() {
     const [loading, setloading] = useState(false)
     const router = useRouter();
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setloading(true)
         // Aqui você pode enviar os dados de login para a sua API
@@ -27,7 +27,7 @@ export default function LoginForm() {
                 email,
                 password: senha,
             });
-            const user = result.data.user;
+            const user = result?.data?.user;
             
             if (user) {
                 console.log('User:', user); // Verifique se o campo tipo está presente
@@ -40,7 +40,7 @@ export default function LoginForm() {
             }
 
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Erro ao fazer login:', error);
             setError(error.message);
         }finally{

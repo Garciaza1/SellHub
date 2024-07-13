@@ -15,7 +15,7 @@ export default function Cadastro() {
   const [error, setError] = useState<any>('');
   const router = useRouter()
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Aqui você pode enviar os dados de login para a sua API

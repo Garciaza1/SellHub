@@ -52,3 +52,4 @@ const fetchUserSession = async (): Promise<UserSession | null> => {
 
 // Exporta a função fetchUserSession como padrão
 export default fetchUserSession;
+

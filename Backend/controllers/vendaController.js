@@ -2,6 +2,9 @@ const db = require('../config/db');
 
 const vendaController = {
 
+    // error:"Failed to create venda: Error: Cannot add or update a child row: a foreign key constraint fails 
+    // (`sellhub`.`vendas`, CONSTRAINT `vendas_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `produto` (`id`) ON UPDATE CASCADE)"
+
     createVenda: (req, res) => {
         const { endereco, numResidencia, cep, valor, quantidade, metodoPagamento, cpf, user_id, id_produto, vendedor_id } = req.body;
         

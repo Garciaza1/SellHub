@@ -63,13 +63,6 @@ const PorDiaVendedor: React.FC<PorDiaProps> = ({ salesData }) => {
         data: salesData.map((sale) => sale.total_vendas),
         backgroundColor: "rgb(75, 192, 192, 0.4)",
         borderColor: "rgba(75, 192, 192, 0.2)",
-      },
-      {
-        type: 'line',
-        label: '1/2 Total',
-        data: salesData.map((sale) => sale.total_vendas / 2),
-        fill: false,
-        borderColor: 'rgb(54, 162, 235)'
       }
     ],
   };

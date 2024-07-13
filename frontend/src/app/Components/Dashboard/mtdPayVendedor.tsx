@@ -60,8 +60,6 @@ const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {
   };
 
   const options = {
-    responsive: true,
-    barThickness: 60,
     maintainAspectRatio: false,
     scales: {
       x: {
@@ -82,7 +80,7 @@ const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {
         },
       },
     },
-    indexAxis: 'y',
+    // indexAxis: 'y',
   };
 
   return (

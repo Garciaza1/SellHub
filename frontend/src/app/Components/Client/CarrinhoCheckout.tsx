@@ -54,7 +54,7 @@ const CarrinhoCompra: React.FC<checkoutProps> = ({ carrinho, user_id }) => {
         metodoPagamento,
         cpf,
         user_id: user_id,
-        id_produto: item.id,
+        id_produto: item.product_id,
         vendedor_id: item.id_vendedor,
       };
       try {
@@ -131,7 +131,7 @@ const CarrinhoCompra: React.FC<checkoutProps> = ({ carrinho, user_id }) => {
                 Quantidade:{" "}
                 <span className="font-semibold ">
                   {" "}
-                  {carrinho.reduce((acc, item) => acc + item.quantidade, 0)}
+                  {carrinho.reduce((acc: number, item: { quantidade: number }) => acc + item.quantidade, 0)}
                 </span>
               </p>
             </div>
@@ -142,7 +142,7 @@ const CarrinhoCompra: React.FC<checkoutProps> = ({ carrinho, user_id }) => {
                 <span className="font-semibold ">
                   R${" "}
                   {carrinho.reduce(
-                    (acc, item) => acc + item.preco * item.quantidade,
+                    (acc: number, item: { quantidade: number, preco: number }) => acc + item.preco * item.quantidade,
                     0
                   )}
                 </span>

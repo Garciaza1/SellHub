@@ -143,7 +143,7 @@ const VendasTable: React.FC<MinhasVendasProps> = ({ user_id }) => {
           </>
         ) : (
           vendas.map((venda, index) => (
-            <table className="bg-zinc-950 border-separate border-spacing-y-1 rounded-lg my-1 p-2 px-5 table-fixed w-full">
+            <table key={index} className="bg-zinc-950 border-separate border-spacing-y-1 rounded-lg my-1 p-2 px-5 table-fixed w-full">
               <thead>
                 <tr>
                   <th

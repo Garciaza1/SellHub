@@ -99,7 +99,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({ carrinho }) => {
                   Quantidade:{" "}
                   <span className="font-semibold ">
                     {" "}
-                    {carrinho.reduce((acc, item) => acc + item.quantidade, 0)}
+                    {carrinho.reduce((acc: number, item: { quantidade: number }) => acc + item.quantidade, 0)}
                   </span>
                 </p>
               </div>
@@ -110,7 +110,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({ carrinho }) => {
                   <span className="font-semibold ">
                     R${" "}
                     {carrinho.reduce(
-                      (acc, item) => acc + item.preco * item.quantidade,
+                      (acc: number, item: { quantidade: number, preco: number }) => acc + item.preco * item.quantidade,
                       0
                     )}
                   </span>

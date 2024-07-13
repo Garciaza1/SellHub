@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 interface MeusProdutosProps {
@@ -45,6 +46,8 @@ const MeusProdutosDeletados: React.FC<MeusProdutosProps> = ({ user_id }) => {
                 <img
                   className="my-3 bg-zinc-700 animate-pulse"
                   style={{ height: "10rem" }}
+                  alt=""
+                  src={'##'}
                 />
               </div>
               <div className="text-center font-semibold text-lg my-1 bg-zinc-700 animate-pulse h-10  rounded-xl"></div>

@@ -22,7 +22,7 @@ const CompraForm: React.FC<checkoutProps> = ({ product, vendedor, user_id }) => 
 
   const router = useRouter();
   const params = useParams();
-  const quantidade = params.quantidade;
+  const quantidade = Number(params.quantidade);
   const valor = product.preco * quantidade;
 
   const fetchUser = async () => {

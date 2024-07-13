@@ -23,7 +23,7 @@ const LogOutPage = () => {
 
   useEffect(() => {
     handleLogOut();
-  }, []);
+  }, );
 
   return (
     <div className="text-center text-3xl text-zinc-200 mt-96">Logging out... <FontAwesomeIcon icon={faSpinner} className='animate-spin text-3xl mx-2'/></div>

@@ -56,7 +56,7 @@ const QntdXvalor: React.FC<DoDiaProps> = ({ salesData }) => {
 
   const formattedDates = salesData.map((sale) => formatDate(sale.venda_data));
 
-  const data: ChartData<"bar" | "line"> = {
+  const data: ChartData<"bar"> = {
     labels: formattedDates,
     datasets: [
       {
@@ -66,17 +66,17 @@ const QntdXvalor: React.FC<DoDiaProps> = ({ salesData }) => {
         backgroundColor: "rgb(75, 192, 192, 0.6)",
         borderColor: "blue",
       },
-      {
-        type: 'line',
-        label: "Quantidade Total x10",
-        data: salesData.map((sale) => sale.quantidade * 10),
-        backgroundColor: "red",
-        borderColor: "red",
-      },
+      // {
+      //   type: 'line',
+      //   label: "Quantidade Total x10",
+      //   data: salesData.map((sale) => sale.quantidade * 10),
+      //   backgroundColor: "red",
+      //   borderColor: "red",
+      // },
     ],
   };
 
-  const options: ChartOptions<"bar" | "line"> = {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
     maintainAspectRatio: false,
     scales: {

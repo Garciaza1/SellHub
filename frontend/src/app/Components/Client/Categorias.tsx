@@ -3,12 +3,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+
+type UserSession = {
+  id: string;
+  nome: string;
+  tipo: string;
+  email: string;
+  cpf: string;
+  tel: string;
+};
 
 interface categoriaProps {
   categoria: string;
+  user: UserSession  | null
 }
 
-const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
+const Categoria: React.FC<categoriaProps> = ({ categoria, user }) => {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -44,9 +55,9 @@ const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
       return;
     }
     try {
-      console.log(user.user.id, product_id);
+      console.log(user.id, product_id);
       const response = await axios.post("http://localhost:5000/Carrinho/Post", {
-        user_id: user.user.id,
+        user_id: user.id,
         product_id,
         id_vendedor,
         quantidade: 1,
@@ -70,7 +81,7 @@ const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
           className="bg-zinc-900 p-12 py-20 rounded-xl flex flex-wrap justify-center text-center "
           style={{ height: "65vh", width: "auto" }}
         >
-          {[...Array(4).keys()].map((index) => (
+          {Array.from({ length: 4 }).map((_, index) => (
             <div
               key={index}
               className="bg-zinc-950 px-6 w-72 rounded-lg mx-4 mb-4 animate-pulse flex justify-center pb-24"
@@ -81,6 +92,7 @@ const Categoria: React.FC<categoriaProps> = ({ categoria }) => {
                   <img
                     className="my-3  bg-zinc-700 animate-pulse "
                     style={{ height: "20rem" }}
+                    alt=""
                   />
                 </div>
                 <div className="bg-zinc-800 h-1 w-full rounded-lg p-5 mb-1 animate-pulse"></div>
