@@ -23,17 +23,17 @@ ChartJS.register(
   Legend
 );
 
-interface SaleData {
-  venda_data: string;
-  total_vendas: number;
-  quantidade: number;
-  mtd_pay: string;
-  cep: string;
-  sts_venda: string;
-}
+// interface SaleData {
+//   venda_data: string;
+//   total_vendas: number;
+//   quantidade: number;
+//   mtd_pay: string;
+//   cep: string;
+//   sts_venda: string;
+// }
 
 interface DoDiaProps {
-  salesData: SaleData[];
+  salesData: any[] | null;
 }
 const DoDiaVendedor: React.FC<DoDiaProps> = ({ salesData }) => {
   if (!salesData) {

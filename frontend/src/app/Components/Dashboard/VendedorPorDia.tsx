@@ -26,18 +26,19 @@ ChartJS.register(
 );
 
 
-interface SaleData {
-  venda_data: string;
-  total_vendas: number;
-  quantidade: number;
-  mtd_pay: string;
-  cep: string;
-  sts_venda: string;
-}
+// interface SaleData {
+//   venda_data: string;
+//   total_vendas: number;
+//   quantidade: number;
+//   mtd_pay: string;
+//   cep: string;
+//   sts_venda: string;
+// }
 
 interface PorDiaProps {
-  salesData: SaleData[];
+  salesData: any[] | null;
 }
+
 const PorDiaVendedor: React.FC<PorDiaProps> = ({ salesData }) => {
   if (!salesData) {
     return <p>No sales data available</p>;

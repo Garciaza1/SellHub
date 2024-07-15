@@ -4,7 +4,7 @@ import {
   getDataVendedorPorDia,
   getDataVendedorDoDia,
   getMtdPay,
-  getSomas
+  getSomas,
 } from "../../lib/helpers/GetDashboard";
 import DoDiaVendedor from "../Dashboard/VendedorDoDia";
 import PorDiaVendedor from "../Dashboard/VendedorPorDia";
@@ -17,23 +17,30 @@ interface DashboardProps {
   user_id: string | undefined;
 }
 
+interface Soma {
+  quantidade: string;
+  total: string;
+  vendas: string;
+}
+
 const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
-  const [vendasDoDia, setVendasDoDia] = useState([]);
-  const [vendasPorDia, setVendasPorDia] = useState([]);
-  const [MtdPay, setMtdPay] = useState([]);
-  const [somas, setSomas] = useState([]);
+  const [vendasDoDia, setVendasDoDia] = useState<any[] | null>(null);
+  const [vendasPorDia, setVendasPorDia] = useState<any[] | null>(null);
+  const [MtdPay, setMtdPay] = useState<any[] | null>(null);
+  const [somas, setSomas] = useState<Soma | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+
     const FetchVendasDoDia = async () => {
       try {
-        const doDia = await getDataVendedorPorDia(user_id);
-        const response = doDia;
+        const response = await getDataVendedorPorDia(user_id);
         setVendasPorDia(response);
       } catch (err) {
         setError("Erro ao enviar os dados: " + err);
       }
     };
+
     const FetchVendasPorDia = async () => {
       try {
         const porDia = await getDataVendedorDoDia(user_id);
@@ -53,12 +60,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
         setError("Erro ao enviar os dados: " + err);
       }
     };
-    const FetchGetSomas = async () =>{
-      try{
-        const somas = await getSomas(user_id);
-        const response = somas;
-        setSomas(response[0])
-      }catch(err){
+
+    const FetchGetSomas = async () => {
+      try {
+        const response = await getSomas(user_id);
+        if (response) {
+          setSomas(response[0]);
+        } else {
+          setSomas(null);
+        }
+      } catch (err) {
         setError("Erro ao enviar os dados: " + err);
       }
     };
@@ -69,8 +80,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user_id }) => {
     FecthMtdPay();
   }, [user_id]);
 
-// COLOCAR AS 3 CAIXAS DE TOTAIS DE VALOR, QUANTIDADE E N°-DE-COMPRAS  "SELECT SUM(total), SUM(quantidade), COUNT(id) from vendas" WHERE vendedor_id = id da session
-console.log(somas)
+  
   return (
     <div className="container bg-gray-500 rounded-xl">
       {error}
@@ -79,13 +89,22 @@ console.log(somas)
           DASHBOARD
         </p>
       </div>
-      
+
       <section className="flex justify-between items-center text-center bg-cyan-100 m-20 text-black rounded-3xl py-5">
-        <div className="px-8 font-semibold py-5 border rounded-xl ms-6 bg-teal-500">Produtos Vendidos: <br /><span className="font-bold text-lg">  {somas.quantidade}</span></div>
-        <div className="px-10 font-semibold py-5 border rounded-xl bg-teal-500">Total em Vendas:  <br /><span className="font-bold text-lg"> R${somas.total}</span></div>
-        <div className="px-10 font-semibold py-5 border rounded-xl me-6 bg-teal-500">N° de Vendas: <br /><span className="font-bold text-lg"> {somas.vendas}</span></div>
+        <div className="px-8 font-semibold py-5 border rounded-xl ms-6 bg-teal-500">
+          Produtos Vendidos: <br />
+          <span className="font-bold text-lg"> {somas?.quantidade}</span>
+        </div>
+        <div className="px-10 font-semibold py-5 border rounded-xl bg-teal-500">
+          Total em Vendas: <br />
+          <span className="font-bold text-lg"> R${somas?.total}</span>
+        </div>
+        <div className="px-10 font-semibold py-5 border rounded-xl me-6 bg-teal-500">
+          N° de Vendas: <br />
+          <span className="font-bold text-lg"> {somas?.vendas}</span>
+        </div>
       </section>
-      
+
       <section className="flex justify-between text-center bg-cyan-100 m-20 text-black rounded-3xl ">
         <div className="w-5/12 p-5">
           <div className="font-bold text-xl ">Vendas Dia a Dia:</div>

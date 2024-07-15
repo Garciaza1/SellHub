@@ -16,7 +16,7 @@ interface MinhasVendasProps {
 //==================================================================================\\
 
 const VendasTable: React.FC<MinhasVendasProps> = ({ user_id }) => {
-  const [vendas, setVendas] = useState([]);
+  const [vendas, setVendas] = useState<any[]>([]);
   const [erro, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -105,7 +105,7 @@ const VendasTable: React.FC<MinhasVendasProps> = ({ user_id }) => {
             <p className="text-4xl font-semibold mb-5">VENDAS</p>
           </div>
           <div>
-            {[...Array(6).keys()].map((index) => (
+            {Array.from({ length: 6 }).map((_, index) => (
               <table
                 key={index}
                 className="bg-zinc-950 border-separate border-spacing-y-2 rounded-lg my-2 p-2 px-5 table-fixed w-full animate-pulse"

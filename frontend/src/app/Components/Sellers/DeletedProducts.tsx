@@ -1,13 +1,13 @@
 "use client";
 import axios from "axios";
-import Image from "next/image";
+// import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 interface MeusProdutosProps {
   user_id: string | undefined;
 }
 const MeusProdutosDeletados: React.FC<MeusProdutosProps> = ({ user_id }) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

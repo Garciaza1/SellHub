@@ -37,9 +37,9 @@ const codigoDeBarras = ramdomnumber(1) + radomCode(11);
 
 const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
   const router = useRouter();
-  const [imagemProduto, setImagemProduto] = useState<File | null>(null);
+  const [imagemProduto, setImagemProduto] = useState<File | null | string>(null);
 
-  const [erro, setError] = useState<String | unknown>(null);
+  const [erro, setError] = useState<any>(null);
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
   const [quantidade, setQuant] = useState("");
@@ -94,7 +94,7 @@ const ProdutoForm: React.FC<ProdutoFormProps> = ({ user_id }) => {
         router.push("http://localhost:3000/Sellers/MeusProdutos");
       }
     } catch (error) {
-      setError(error.response?.data.error || error.message);
+      setError(error);
       console.error("Erro ao enviar os dados:", error);
     }
   };

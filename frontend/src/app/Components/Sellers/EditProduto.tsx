@@ -33,7 +33,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [imagemProduto, setImagemProduto] = useState<File | null>(null);
+  const [imagemProduto, setImagemProduto] = useState<File | null | string>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,7 +123,7 @@ const EditProduto: React.FC<EditProdutoProps> = ({ id }) => {
 
   const toggleHidden = () => {
     const button = document.getElementById("button-excluir");
-    button.classList.toggle("hidden"); // Add or remove "hidden" class
+    button?.classList.toggle("hidden"); // Add or remove "hidden" class
   };
 
   console.log(product);

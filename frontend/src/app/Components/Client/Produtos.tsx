@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
+// import Image from "next/image";
 
 const TodosProdutos = (user: null | any) => {
   const [products, setProducts] = useState<any[]>([]);

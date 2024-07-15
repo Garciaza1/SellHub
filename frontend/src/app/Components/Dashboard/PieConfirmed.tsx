@@ -10,12 +10,12 @@ import {
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface SaleData {
-  sts_venda: string;
-}
+// interface SaleData {
+//   sts_venda: string;
+// }
 
 interface VendasStatusPieChartProps {
-  salesData: SaleData[];
+  salesData: any[] | null;
 }
 
 const VendasStatusPieChart: React.FC<VendasStatusPieChartProps> = ({ salesData }) => {

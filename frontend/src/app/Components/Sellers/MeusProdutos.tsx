@@ -7,7 +7,7 @@ interface MeusProdutosProps {
   user_id: string | undefined;
 }
 const MeusProdutos: React.FC<MeusProdutosProps> = ({ user_id }) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

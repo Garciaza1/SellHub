@@ -1,7 +1,14 @@
 {
-  "extends": "next/core-web-vitals",
-  "plugins": ["next"],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next",
+    "next/core-web-vitals"
+  ],
+  "plugins": ["@typescript-eslint"],
   "rules": {
-    "next/no-img-element": "off" // Desativa o aviso para o elemento <img>
+    "next/no-img-element": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }]
   }
 }

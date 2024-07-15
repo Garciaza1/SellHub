@@ -21,13 +21,13 @@ ChartJS.register(
   Legend
 );
 
-interface SaleData {
-  numero_vendas: number;
-  mtd_pay: string;
-}
+// interface SaleData {
+//   numero_vendas: number;
+//   mtd_pay: string;
+// }
 
 interface MtdPayProps {
-  salesData: SaleData[];
+  salesData: any[] | null;
 }
 
 const MtdPayVendedor: React.FC<MtdPayProps> = ({ salesData }) => {

@@ -32,14 +32,13 @@ const HeaderMenu: React.FC<HeaderProps> = async ({ metadata }) => {
   // configura o usuario usndo helper mas puxa mta memoria
   let tipo = "";
   let nome = "";
-  let id = "";
 
   const session = await fetchUserSession();
 
   if (session) {
     nome = session.nome;
     tipo = session.tipo;
-    id = session.id;
+    // let id = session.id;
     // email = session.email;
   }
 

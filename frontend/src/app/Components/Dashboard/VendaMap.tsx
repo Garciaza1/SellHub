@@ -6,16 +6,16 @@ import GetCep from "../../lib/helpers/GetCep";
 import Image from "next/image";
 import mapa from "../../../assets/mapa.png";
 
-interface Venda {
-  cep: string;
-  total_vendas: number;
-  quantidade: number;
-  sts_venda: string;
-  venda_data: string;
-}
+// interface Venda {
+//   cep: string;
+//   total_vendas: number;
+//   quantidade: number;
+//   sts_venda: string;
+//   venda_data: string;
+// }
 
 interface VendasMapProps {
-  salesData: Venda[];
+  salesData: any[] | null;
 }
 
 // interface Coordenadas {
@@ -29,6 +29,11 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
 
   useEffect(() => {
     const fetchMarkers = async () => {
+      if (!salesData) {
+        // Se salesData for null, saia da função sem fazer nada
+        return;
+      }
+
       const markersArray: any[] = [];
       for (const sale of salesData) {
         const coords = await GetCep(sale.cep);
@@ -113,7 +118,8 @@ const VendasMap: React.FC<VendasMapProps> = ({ salesData }) => {
           >
             <Popup>
               <strong>Quantidade:</strong> {marker.quantidade} <br />
-              <strong>Ultima Venda:</strong> {marker.venda_data.toLocaleDateString()} <br />
+              <strong>Ultima Venda:</strong>{" "}
+              {marker.venda_data.toLocaleDateString()} <br />
               <strong>Total em Vendas:</strong> {marker.total_vendas} <br />
             </Popup>
           </Marker>
