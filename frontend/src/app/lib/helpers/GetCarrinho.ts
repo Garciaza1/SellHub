@@ -1,5 +1,5 @@
 import axios from "axios";
-interface Compras {
+interface Carrinho {
   id: string;
   id_vendedor: string;
   user_id: string;
@@ -9,7 +9,7 @@ interface Compras {
   garatia: number;
   imagem: string;
 }
-const getCarrinho = async (id: string): Promise<Compras | null> => {
+const getCarrinho = async (id: string): Promise<Carrinho | null > => {
   try {
     const response = await axios.get(
       `http://localhost:5000/Carrinho/Get/${id}`

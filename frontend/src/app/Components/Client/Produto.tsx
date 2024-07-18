@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { ChangeEvent, useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import Image from "next/image";
+// import Image from "next/image";
 
 interface produtoProps {
   vendedor: any;

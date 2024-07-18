@@ -8,6 +8,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 const TodosProdutos = (user: null | any) => {
   const [products, setProducts] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
@@ -38,19 +39,20 @@ const TodosProdutos = (user: null | any) => {
       return;
     }
     try {
-      console.log(user.user.id, product_id)
+      console.log(user.user.id, product_id);
       const response = await axios.post("http://localhost:5000/Carrinho/Post", {
         user_id: user.user.id,
         product_id,
         id_vendedor,
         quantidade: 1,
-      });
+      })
       if (response.status === 200) {
+        //nao ta funcionando !!
+        alert("Produto adicionado com sucesso!");
         setError("Produto adicionado ao carrinho com sucesso!");
-        // abrir modal posteriormente
       }
     } catch (err: any) {
-      setError("Erro ao adicionar produto ao carrinho: " + err.message);
+      setError("Erro ao adicionar produto ao carrinho: " + err);
     }
   };
 
@@ -169,11 +171,16 @@ const TodosProdutos = (user: null | any) => {
                         </div>
                         <div className="mt-4">
                           <button
-                            onClick={() => handleCarrinho(product.id, product.user_id)}
+                            onClick={() =>
+                              handleCarrinho(product.id, product.user_id)
+                            }
                             className="p-2 px-4 bg-blue-500 rounded-xl"
                             type="button"
                           >
-                            <FontAwesomeIcon icon={faCartPlus} className="text-2xl"/>
+                            <FontAwesomeIcon
+                              icon={faCartPlus}
+                              className="text-2xl"
+                            />
                           </button>
                           {error}
                         </div>
