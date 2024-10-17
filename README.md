@@ -5,7 +5,7 @@ SellHub é um projeto de e-commerce desenvolvido com Next.js no front-end e Node
 # Tecnologias Utilizadas
 - **frontend:** Next.js, TypeScript
 - **Back-End:** Node.js, JavaScript
-- **Banco de Dados:** MySQL-2
+- **Banco de Dados:** MySQL
 - **Desenvolvimento:** Nodemon
 
 
